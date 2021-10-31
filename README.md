@@ -32,3 +32,5 @@ for (size_t i = 0; i < inven.size(); i++)
 	cout << inven[i].item_debugPrint() << endl;
 }
 ```
+
+<img src="./image/itemAdd_example.png>
