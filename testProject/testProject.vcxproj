@@ -148,10 +148,6 @@
     <ClInclude Include="Functions.h" />
     <ClInclude Include="Game.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\mainMenu.png" />
-    <Image Include="..\..\..\Status.png" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
