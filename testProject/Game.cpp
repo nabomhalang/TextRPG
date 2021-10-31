@@ -18,6 +18,20 @@ Game::~Game()
 //Functions
 void Game::initGame()
 {
+	Inventory inven;
+	inven.addItem(Weapon(0, 0, "Nomal Weapon", 0, 0, 0, 0));
+	inven.addItem(Weapon(0, 0, "Nomal Weapon2", 0, 0, 0, 0));
+	inven.addItem(Weapon(0, 0, "Nomal Weapon3", 0, 0, 0, 0));
+	inven.addItem(Armor(0, 0, "Nomal Armor_had", 0, 0, 0, 0));
+	inven.addItem(Armor(0, 0, "Nomal Armor_arms", 0, 0, 0, 0));
+	inven.addItem(Armor(0, 0, "Nomal Armor_body", 0, 0, 0, 0));
+	inven.addItem(Armor(0, 0, "Nomal Armor_legs", 0, 0, 0, 0));
+
+	for (size_t i = 0; i < inven.size(); i++)
+	{
+		cout << inven[i].item_debugPrint() << endl;
+	}
+
 	this->CreateNewChacter();
 }
 
