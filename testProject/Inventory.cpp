@@ -3,9 +3,10 @@
 
 Inventory::Inventory()
 {
-	this->cap = 10;
+	this->cap = 5;
 	this->nrOfItem = 0;
 	this->itemArr = new Item * [cap];
+	this->initialize();
 }
 
 Inventory::~Inventory()
@@ -15,6 +16,25 @@ Inventory::~Inventory()
 		delete this->itemArr[i];
 	}
 	delete[] this->itemArr;
+}
+
+Inventory::Inventory(const Inventory& obj)
+{
+	this->cap = obj.cap;
+	this->nrOfItem = obj.nrOfItem;
+	this->itemArr = new Item * [this->cap];
+	
+	for (size_t i = 0; i < nrOfItem; i++)
+	{
+		this->itemArr[i] = obj.itemArr[i]->clone();
+	}
+	this->initialize(this->nrOfItem);
+}
+
+Item& Inventory::operator[](const int index)
+{
+	if (index < 0 || index >= this->nrOfItem) throw("Not Work INDEX");
+	return *this->itemArr[index];
 }
 
 void Inventory::initialize(const int from)
@@ -32,7 +52,7 @@ void Inventory::addItem(const Item& item)
 		expand();
 	}
 
-	this->itemArr[this->nrOfItem++] = new Item(item);
+	this->itemArr[this->nrOfItem++] = item.clone();
 }
 
 void Inventory::removeItem(int index)
@@ -48,13 +68,9 @@ void Inventory::expand()
 
 	for (size_t i = 0; i < this->nrOfItem; i++)
 	{
-		tempArr[i] = new Item(*this->itemArr[i]);
+		tempArr[i] = this->itemArr[i];
 	}
 
-	for (size_t i = 0; i < this->nrOfItem; i++)
-	{
-		delete this->itemArr[i];
-	}
 	delete[] this->itemArr;
 
 	this->itemArr = tempArr;

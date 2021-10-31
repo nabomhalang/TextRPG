@@ -32,6 +32,14 @@ private:
 	double xPos;
 	double yPos;
 
+	Inventory inventory;
+	Weapon weapon;
+
+	Armor armor_head;
+	Armor armor_body;
+	Armor armor_arms;
+	Armor armor_legs;
+
 	string name;
 	int level;
 	int exp;

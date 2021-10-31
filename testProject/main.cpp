@@ -12,9 +12,6 @@ int main(void)
 	game.initGame();
 
 	Inventory inventory;
-	inventory.addItem(Item());
-
-	inventory.inv_debugPrint();
 
 	while (game.getPlaying())
 	{

@@ -53,10 +53,17 @@ void Game::mainMenu()
 	case 6:
 		cin.ignore();
 		this->CreateNewChacter();
-		//this->SaveChacter();
+		this->SaveChacter();
 		break;
 
 	case 7:
+		cin.ignore();
+		this->SaveChacter();
+		break;
+
+	case 8:
+		cin.ignore();
+		this->LoadChacter();
 		break;
 
 	default:
@@ -77,12 +84,22 @@ void Game::CreateNewChacter()
 	characters[this->activeCharacter].initialize(name);
 }
 
-void SaveChacter()
+void Game::SaveChacter()
 {
+	ofstream outFile(fileName);
 
+	if (outFile.is_open())
+	{
+		for (size_t i = 0; i < characters.size(); i++)
+		{
+			outFile << characters[i].getAsString() << "\n";
+		}
+	}
+
+	outFile.close();
 }
 
-void LoadChacter()
+void Game::LoadChacter()
 {
 
 }

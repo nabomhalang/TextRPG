@@ -1,10 +1,12 @@
 #include "Item.h"
 
-Item::Item()
+Item::Item(string name, int level, int buyValue, int sellValue, int rarity)
 {
-	this->name = "None";
-	this->buyvalue = 0;
-	this->sellvalue = 0;
+	this->name = name;
+	this->level = level;
+	this->buyvalue = buyValue;
+	this->sellvalue = sellValue;
+	this->rarity = rarity;
 }
 
 Item::~Item()

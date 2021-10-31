@@ -1,5 +1,6 @@
 #pragma once
-#include "Item.h"
+#include "Weapon.h"
+#include "Armor.h"
 
 class Inventory
 {
@@ -8,11 +9,16 @@ private:
 	int nrOfItem;
 	Item** itemArr;
 	void expand();
-	void initialize(const int from);
+	void initialize(const int from = 0);
 
 public:
 	Inventory();
 	virtual ~Inventory();
+
+	Inventory(const Inventory& obj);
+	inline int size() const { return this->nrOfItem; }
+	Item& operator[](const int index);;
+
 	void addItem(const Item& item);
 	void removeItem(int index);
 
