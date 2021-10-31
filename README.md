@@ -13,7 +13,7 @@ Text RPG
 
 + 캐릭터 저장 character.txt파일 안에 정보 저장됨
 + 무기 및 갑옷 class 완성 Inventory class 생성후 .addItem()으로 생성 가능
-example
+<br>example
 ```c++
 Inventory inven;
 inven.addItem(Weapon(0, 0, "Nomal Weapon", 0, 0, 0, 0));
