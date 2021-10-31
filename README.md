@@ -33,4 +33,4 @@ for (size_t i = 0; i < inven.size(); i++)
 }
 ```
 
-<img src="./image/itemAdd_example.png>
+<img src="./images/itemAdd_example.png>
