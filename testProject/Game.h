@@ -1,8 +1,9 @@
 #pragma once
-
 #include "Character.h"
 #include "Functions.h"
 #include <ctime>
+#include <vector>
+#include <fstream>
 
 class Game
 {
@@ -13,6 +14,9 @@ public:
 	//Function
 	void mainMenu();
 	void initGame();
+	void CreateNewChacter();
+	void SaveChacter();
+	void LoadChacter();
 
 	inline bool getPlaying() const { return this->playing; }
 
@@ -20,6 +24,9 @@ private:
 	int choice;
 	bool playing;
 
-	Character character;
+	//Character
+	int activeCharacter;
+	vector<Character> characters;
+	string fileName;
 };
 

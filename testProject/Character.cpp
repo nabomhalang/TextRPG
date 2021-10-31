@@ -42,7 +42,7 @@ void Character::initialize(const string name)
 	this->name = name;
 	this->level = 1;
 	this->exp = 0;
-	this->expNext = (50/3)*(pow(level, 3) - 6 * pow(level, 3) + (17 * level) - 11); //레벨 필요치 알고리즘
+	this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
 	
 	this->strength = 5;
 	this->vitality = 5;
@@ -91,10 +91,25 @@ void Character::levelUp()
 		this->exp -= this->expNext;
 		this->level++;
 		this->exp = 0;
-		this->expNext = (50 / 3) * (pow(this->level, 3) - 6 * pow(this->level, 3) + (17 * this->level) - 11);
+		this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
 	
 		this->statPoints++;
 		this->skillPoints++;
 	}
 	
+}
+
+string Character::getAsString() const
+{
+	return to_string(this->xPos) + " "
+		+ to_string(this->yPos) + " "
+		+ this->name + " "
+		+ to_string(this->level) + " "
+		+ to_string(this->exp) + " "
+		+ to_string(this->strength) + " "
+		+ to_string(this->vitality) + " "
+		+ to_string(this->dexterity) + " "
+		+ to_string(this->intelligence) + " "
+		+ to_string(this->skillPoints) + " "
+		+ to_string(this->statPoints);
 }

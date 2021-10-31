@@ -1,7 +1,5 @@
 #pragma once
-#include <string>
-#include <iostream>
-using namespace std;
+#include "Inventory.h"
 
 class Character
 {
@@ -13,6 +11,7 @@ public:
 	void initialize(const string name);
 	void GetChacterStatus() const;
 	void levelUp();
+	string getAsString() const;
 
 	//private_Accessors(Ä¸½¶È­)
 	inline const double& getXpos() const { return this->xPos; }

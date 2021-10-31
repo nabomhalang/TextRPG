@@ -5,6 +5,8 @@ Game::Game()
 {
 	choice = 0;
 	playing = true;
+	activeCharacter = 0;
+	fileName = "Caracters.txt";
 
 }
 
@@ -16,12 +18,7 @@ Game::~Game()
 //Functions
 void Game::initGame()
 {
-	string name;
-
-	cout << "캐릭터의 이름을 입력해 주세요 : ";
-	getline(cin, name);
-
-	character.initialize(name);
+	this->CreateNewChacter();
 }
 
 
@@ -35,6 +32,9 @@ void Game::mainMenu()
 	cout << "3: 레벨업하기" << endl;
 	cout << "4: 쉬기" << endl;
 	cout << "5: 캐릭터 정보" << endl;
+	cout << "6: 캐릭터 만들기" << endl;
+	cout << "7: 캐릭터 저장하기" << endl;
+	cout << "8: 캐릭터 불러오기" << endl;
 	cout << "────────────────" << endl;
 
 	cout << "선택 : ";
@@ -47,9 +47,42 @@ void Game::mainMenu()
 		break;
 
 	case 5:
-		character.GetChacterStatus();
+		characters[this->activeCharacter].GetChacterStatus();
 		break;
+
+	case 6:
+		cin.ignore();
+		this->CreateNewChacter();
+		//this->SaveChacter();
+		break;
+
+	case 7:
+		break;
+
 	default:
 		break;
 	}
+}
+
+void Game::CreateNewChacter()
+{
+	string name = "";
+
+	cout << "캐릭터의 이름을 입력해 주세요 : ";
+	getline(cin, name);
+
+	characters.push_back(Character());
+
+	this->activeCharacter = characters.size() - 1;
+	characters[this->activeCharacter].initialize(name);
+}
+
+void SaveChacter()
+{
+
+}
+
+void LoadChacter()
+{
+
 }
