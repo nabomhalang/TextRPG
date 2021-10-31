@@ -16,6 +16,9 @@
     <Filter Include="리소스 파일\images">
       <UniqueIdentifier>{244ece6c-855f-4c3e-9ac2-1e3cbd00ab54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\images">
+      <UniqueIdentifier>{e37d415a-8967-48b6-8abb-52f31ff92078}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,10 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\mainMenu.png">
-      <Filter>리소스 파일\images</Filter>
+      <Filter>소스 파일\images</Filter>
     </Image>
     <Image Include="..\..\..\Status.png">
-      <Filter>리소스 파일\images</Filter>
+      <Filter>소스 파일\images</Filter>
     </Image>
   </ItemGroup>
 </Project>
