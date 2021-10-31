@@ -5,8 +5,8 @@ Text RPG
 10-31
 -------------
 
-## Main menu
+### Main menu
 <img src="./images/mainMenu.png">
 
-## Status print
+### Status print
 <img src="./images/Status.png">
