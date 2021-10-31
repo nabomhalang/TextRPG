@@ -1,10 +1,8 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <ctime>
-#include "Functions.h"
 
-using namespace std;
+#include "Character.h"
+#include "Functions.h"
+#include <ctime>
 
 class Game
 {
@@ -14,11 +12,14 @@ public:
 
 	//Function
 	void mainMenu();
+	void initGame();
 
 	inline bool getPlaying() const { return this->playing; }
 
 private:
 	int choice;
 	bool playing;
+
+	Character character;
 };
 
