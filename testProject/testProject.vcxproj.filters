@@ -13,6 +13,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="리소스 파일\images">
+      <UniqueIdentifier>{244ece6c-855f-4c3e-9ac2-1e3cbd00ab54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -35,5 +38,13 @@
     <ClInclude Include="Character.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\mainMenu.png">
+      <Filter>리소스 파일\images</Filter>
+    </Image>
+    <Image Include="..\..\..\Status.png">
+      <Filter>리소스 파일\images</Filter>
+    </Image>
   </ItemGroup>
 </Project>
