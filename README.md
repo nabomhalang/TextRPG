@@ -43,12 +43,17 @@ for (size_t i = 0; i < inven.size(); i++)
 
 ### Event 생성
 #### Puzzle 생성
+
 + 경험치 알고리즘 : 레벨과 행운에 따라서 경험치가 올라간다.
+
 ```c++
 int gainExp = rand() % (chances * character.getLevel() * ((rand()%character.getLuck())+1));
 ```
 <img src="./images/puzzle.png">
 <img src="./images/puzzle_exp.png">
+
 + 퀴즈 세팅 파일은 같은 디렉토리 안 puzzle안에 존재한다.
+
 <img src="./images/puzzle_level.png">
+
 + 필요 경험치가 넘었을 경우 자동으로 다음 레벨로 넘어간다.
