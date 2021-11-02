@@ -47,7 +47,7 @@ for (size_t i = 0; i < inven.size(); i++)
 + 경험치 알고리즘 : 레벨과 행운에 따라서 경험치가 올라간다.
 
 ```c++
-int gainExp = rand() % (chances * character.getLevel() * ((rand()%character.getLuck())+1));
+int gainExp = rand() % (chances * character.getLevel() * character.getLuck() );
 ```
 <img src="./images/puzzle.png">
 <img src="./images/puzzle_exp.png">
