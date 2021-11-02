@@ -20,10 +20,10 @@ Enemy::~Enemy()
 std::string Enemy::getInformation() const
 {
 	return "레벨 : " + std::to_string(this->level) + "\n" +
-		"체력 / 체력 최대 : " + std::to_string(this->hp) + " / " + std::to_string(this->hpMax) + "\n" +
-		"공격력 최소 ~ 공격력 최대 : " + std::to_string(this->damgeMin) + " ~ " + std::to_string(this->damgeMax) + "\n" +
+		"hp / hp max : " + std::to_string(this->hp) + " / " + std::to_string(this->hpMax) + "\n" +
+		"데미지 : " + std::to_string(this->damgeMin) + " ~ " + std::to_string(this->damgeMax) + "\n" +
 		"방어력 : " + std::to_string(this->defence) + "\n" +
 		"정확도 : " + std::to_string(this->accuracy) + "\n" +
-		"아이템 떨구는 확률 : " + std::to_string(this->dropChance) + "\n";
+		"drop : " + std::to_string(this->dropChance) + "%\n";
 
 }

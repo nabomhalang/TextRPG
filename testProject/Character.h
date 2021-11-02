@@ -2,6 +2,7 @@
 #include "Inventory.h"
 #include "Enemy.h"
 
+
 class Character
 {
 public:
@@ -18,6 +19,7 @@ public:
 	inline const double& getXpos() const { return this->xPos; }
 	inline const double& getYpos() const { return this->yPos; }
 	inline const std::string& getName() const { return this->name; }
+	inline const int& getDIstTravel() const { return this->distanceTravelled; }
 	inline const int& getLevel() const { return this->level; }
 	inline const int& getExp() const { return this->exp; }
 	inline const int& getExpNext() const { return this->expNext; }
@@ -29,6 +31,11 @@ public:
 	inline const int& getDamageMax() const { return this->damageMax; }
 	inline const int& getDefence() const { return this->defence; }
 	inline const int& getAccuracy() const { return this->accuracy; }
+	inline const int& getLuck() const { return this->luck; }
+
+	inline void setDistTravelled(const int& distance) { this->distanceTravelled = distance; }
+	inline void travel() { this->distanceTravelled++; }
+	inline void gainExp(const int& exp) { this->exp += exp; }
 
 private:
 	double xPos;

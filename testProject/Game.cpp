@@ -24,7 +24,14 @@ void Game::initGame()
 
 void Game::mainMenu()
 {
-	//system("cls");
+	system("cls");
+	if (this->characters[this->activeCharacter].getExp() >= this->characters[this->activeCharacter].getExpNext())
+	{
+		std::cout << this->characters[this->activeCharacter].getLevel() << "랩으로 레벨 업 !! \n\n"; 
+		this->characters[this->activeCharacter].levelUp();
+	}
+
+	
 	std::cout << "──────메인 메뉴──────" << std::endl;
 	std::cout << "0: 끝내기" << std::endl;
 	std::cout << "1: 여행가기" << std::endl;
@@ -44,6 +51,10 @@ void Game::mainMenu()
 	{
 	case 0:
 		playing = false;
+		break;
+
+	case 1:
+		Travel();
 		break;
 
 	case 5:
@@ -106,5 +117,8 @@ void Game::LoadChacter()
 
 void Game::Travel()
 {
+	Event event;
+	this->characters[this->activeCharacter].travel();
 
+	event.generateEvent(this->characters[this->activeCharacter]);
 }

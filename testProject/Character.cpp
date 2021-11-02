@@ -86,7 +86,7 @@ void Character::GetChacterStatus() const
 	std::cout << "지능 : " << this->intelligence << std::endl;
 	std::cout << "Hp / Hp Max : " << this->hp << " / " << this->hpMax << std::endl;
 	std::cout << "Mp / Mp Max : " << this->mp << " / " << this->mpMax << std::endl;
-	std::cout << "공격력 : " << this->damageMin << " ~ " << this->damageMax << std::endl;
+	std::cout << "데미지 : " << this->damageMin << " ~ " << this->damageMax << std::endl;
 	std::cout << "방어력 : " << this->defence << std::endl;
 	std::cout << "정확도 : " << this->accuracy << std::endl;
 	std::cout << "행운 : " << this->luck << std::endl;
@@ -102,9 +102,7 @@ void Character::levelUp()
 	{
 		this->exp -= this->expNext;
 		this->level++;
-		this->exp = 0;
 		this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
-	
 		this->statPoints++;
 		this->skillPoints++;
 	}
