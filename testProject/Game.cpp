@@ -36,12 +36,11 @@ void Game::mainMenu()
 	std::cout << "0: 끝내기" << std::endl;
 	std::cout << "1: 여행가기" << std::endl;
 	std::cout << "2: 쇼핑하기" << std::endl;
-	std::cout << "3: 레벨업하기" << std::endl;
-	std::cout << "4: 쉬기" << std::endl;
-	std::cout << "5: 캐릭터 정보" << std::endl;
-	std::cout << "6: 캐릭터 만들기" << std::endl;
-	std::cout << "7: 캐릭터 저장하기" << std::endl;
-	std::cout << "8: 캐릭터 불러오기" << std::endl;
+	std::cout << "3: 쉬기" << std::endl;
+	std::cout << "4: 캐릭터 정보" << std::endl;
+	std::cout << "5: 캐릭터 만들기" << std::endl;
+	std::cout << "6: 캐릭터 저장하기" << std::endl;
+	std::cout << "7: 캐릭터 불러오기" << std::endl;
 	std::cout << "────────────────" << std::endl;
 
 	std::cout << "선택 : ";
@@ -57,22 +56,22 @@ void Game::mainMenu()
 		Travel();
 		break;
 
-	case 5:
+	case 4:
 		characters[this->activeCharacter].GetChacterStatus();
 		break;
 
-	case 6:
+	case 5:
 		std::cin.ignore();
 		this->CreateNewChacter();
 		this->SaveChacter();
 		break;
 
-	case 7:
+	case 6:
 		std::cin.ignore();
 		this->SaveChacter();
 		break;
 
-	case 8:
+	case 7:
 		std::cin.ignore();
 		this->LoadChacter();
 		break;

@@ -3,7 +3,7 @@ Text RPG
 =============
 
 [1일차](#10-31)
-
+[1일차](#11-02)
 
 10-31
 -------------
@@ -57,3 +57,39 @@ int gainExp = rand() % (chances * character.getLevel() * character.getLuck() );
 <img src="./images/puzzle_level.png">
 
 + 필요 경험치가 넘었을 경우 자동으로 다음 레벨로 넘어간다.
+
+```c++
+void Character::initialize(const std::string name)
+{
+	this->xPos = 0.0;
+	this->yPos = 0.0;
+	this->distanceTravelled = 0;
+
+	this->name = name;
+	this->level = 1;
+	this->exp = 0;
+	this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
+	
+	this->gold = 1000;
+
+	this->strength = 5;
+	this->vitality = 5;
+	this->dexterity = 5;
+	this->intelligence = 5;
+	
+	this->hpMax = (this->vitality * 2) + (this->strength/2);
+	this->hp = this->hpMax;
+	this->mpMax = this->vitality + (this->strength / 2) + (this->dexterity/3);
+	this->mp = this->mpMax;
+	this->damageMin = this->strength;
+	this->damageMax = this->strength + 2;
+	this->defence = this->dexterity + (this->intelligence/2);
+	this->accuracy = (this->dexterity / 2);
+	this->luck = this->intelligence;
+
+	this->statPoints = 0;
+	this->skillPoints = 0;
+}
+```
+
++ 캐릭터 init 설정
