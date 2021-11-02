@@ -6,7 +6,7 @@
 class Character
 {
 public:
-	Character();
+	Character(std::string name = "None", int distanceTravelled = 0, int gold = 0, int level = 0, int exp = 0, int strength = 0, int vitality = 0, int dexterity = 0, int intelligence = 0, int hp = 0, int mp = 0, int statPoints = 0, int skillPoints = 0);
 	virtual ~Character();
 
 	//Functions
@@ -14,10 +14,9 @@ public:
 	void GetChacterStatus() const;
 	void levelUp();
 	std::string getAsString() const;
+	void updateStats();
 
 	//private_Accessors(Ä¸½¶È­)
-	inline const double& getXpos() const { return this->xPos; }
-	inline const double& getYpos() const { return this->yPos; }
 	inline const std::string& getName() const { return this->name; }
 	inline const int& getDIstTravel() const { return this->distanceTravelled; }
 	inline const int& getLevel() const { return this->level; }
@@ -38,8 +37,6 @@ public:
 	inline void gainExp(const int& exp) { this->exp += exp; }
 
 private:
-	double xPos;
-	double yPos;
 
 	int distanceTravelled;
 

@@ -47,23 +47,35 @@ void Event::quzzleEncouter(Character& character)
 	Puzzle puzzle(".//puzzle//1.txt");
 	
 
-	while (completed && chances > 0)
+	while (completed && chances >= 1)
 	{
-		
 		system("cls");
-		chances--;
-		std::cout << "기회 : " << chances+1 << std::endl;
+		std::cout << "기회 : " << chances << std::endl;
 		std::cout << puzzle.getInformatin() << std::endl;
+		
 
 		std::cout << "\n답 : ";
 		std::cin >> userAnswer;
+
+		if (std::cin.fail())
+		{
+			std::cout << "잘못된 입력,.,." << std::endl;
+			std::cin.clear();
+			std::cin.ignore(100, '\n');
+			Sleep(800);
+			continue;
+		}
+		chances--;
+
 		std::cout << std::endl;
 		if (puzzle.getCorrectAnswer() == userAnswer)
 		{
-			int gainExp = rand() % (chances * character.getLevel() * character.getLuck() );
+			int gainExp = (rand() % (chances * character.getLevel() * character.getLuck())) + 5;
 			completed = false;
 
 			character.gainExp(gainExp);
+			std::cout << gainExp << "만큼의 경험치를 얻었습니다" << std::endl;
+			Sleep(1000);
 		}
 		else 
 		{

@@ -1,26 +1,24 @@
 #include "Character.h"
 
 
-Character::Character()
+Character::Character(std::string name, int distanceTravelled, int gold, int level, int exp, int strength, int vitality, int dexterity, int intelligence, int hp, int mp, int statPoints, int skillPoints)
 {
-	this->xPos = 0.0;
-	this->yPos = 0.0;
-	this->distanceTravelled = 0;
+	this->distanceTravelled = distanceTravelled;
 
-	this->name = "";
-	this->level = 0;
-	this->exp = 0;
+	this->name = name;
+	this->level = level;
+	this->exp = exp;
 	this->expNext = 0;
 
-	this->gold = 0;
+	this->gold = gold;
 
-	this->vitality = 0;
-	this->dexterity = 0;
-	this->intelligence = 0;
+	this->vitality = vitality;
+	this->dexterity = dexterity;
+	this->intelligence = intelligence;
 
-	this->hp = 0;
+	this->hp = hp;
 	this->hpMax = 0;
-	this->mp = 0;
+	this->mp = mp;
 	this->mpMax = 0;
 	this->damageMin = 0;
 	this->damageMax = 0;
@@ -28,9 +26,10 @@ Character::Character()
 	this->accuracy = 0;
 	this->luck = 0;
 
-	this->statPoints = 0;
-	this->skillPoints = 0;
+	this->statPoints = statPoints;
+	this->skillPoints = skillPoints;
 
+	this->updateStats();
 
 }
 
@@ -43,8 +42,6 @@ Character::~Character()
 //Functions
 void Character::initialize(const std::string name)
 {
-	this->xPos = 0.0;
-	this->yPos = 0.0;
 	this->distanceTravelled = 0;
 
 	this->name = name;
@@ -111,15 +108,34 @@ void Character::levelUp()
 
 std::string Character::getAsString() const
 {
-	return std::to_string(this->xPos) + " "
-		+ std::to_string(this->yPos) + " "
-		+ this->name + " "
+	return this->name + " "
+		+ std::to_string(this->distanceTravelled) + " "
+		+ std::to_string(this->gold) + " "
 		+ std::to_string(this->level) + " "
 		+ std::to_string(this->exp) + " "
 		+ std::to_string(this->strength) + " "
 		+ std::to_string(this->vitality) + " "
 		+ std::to_string(this->dexterity) + " "
 		+ std::to_string(this->intelligence) + " "
+		+ std::to_string(this->hp) + " "
+		+ std::to_string(this->mp) + " "
 		+ std::to_string(this->skillPoints) + " "
 		+ std::to_string(this->statPoints);
+}
+
+void Character::updateStats()
+{
+	this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
+
+	this->hpMax = (this->vitality * 2) + (this->strength / 2);
+	this->hp = this->hpMax;
+	this->mp = this->mpMax;
+	this->damageMin = this->strength;
+	this->damageMax = this->strength + 2;
+	this->defence = this->dexterity + (this->intelligence / 2);
+	this->accuracy = (this->dexterity / 2);
+	this->luck = this->intelligence;
+
+	this->statPoints = 0;
+	this->skillPoints = 0;
 }

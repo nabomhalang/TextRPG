@@ -47,7 +47,7 @@ for (size_t i = 0; i < inven.size(); i++)
 + 경험치 알고리즘 : 레벨과 행운에 따라서 경험치가 올라간다.
 
 ```c++
-int gainExp = rand() % (chances * character.getLevel() * character.getLuck() );
+iint gainExp = (rand() % (chances * character.getLevel() * character.getLuck())) + 5;
 ```
 <img src="./images/puzzle.png">
 <img src="./images/puzzle_exp.png">
@@ -93,3 +93,5 @@ void Character::initialize(const std::string name)
 ```
 
 + 캐릭터 init 설정
++ 잘못된 입력 예외 처리
++ 캐릭터 저장 및 로드 기능 추가 (추가 : 로드 시 맨 처음 있는 캐릭터만 불러와짐 선택할 수 있도록 바꿔야할거 같음)
