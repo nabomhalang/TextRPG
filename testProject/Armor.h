@@ -8,7 +8,7 @@ private:
 	int defence;
 
 public:
-	Armor(int type = 0, int defence = 0, string name = "None", int level = 0,
+	Armor(int type = 0, int defence = 0, std::string name = "None", int level = 0,
 		int buyValue = 0, int sellValue = 0, int rarity = 0);
 	virtual ~Armor();
 
@@ -16,6 +16,6 @@ public:
 	virtual Armor* clone() const;
 
 	//Functions
-	string toGetInformation();
+	std::string toGetInformation();
 };
 

@@ -17,6 +17,7 @@ public:
 	void CreateNewChacter();
 	void SaveChacter();
 	void LoadChacter();
+	void Travel();
 
 	inline bool getPlaying() const { return this->playing; }
 
@@ -26,7 +27,7 @@ private:
 
 	//Character
 	int activeCharacter;
-	vector<Character> characters;
-	string fileName;
+	std::vector<Character> characters;
+	std::string fileName;
 };
 

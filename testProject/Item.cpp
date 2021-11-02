@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(string name, int level, int buyValue, int sellValue, int rarity)
+Item::Item(std::string name, int level, int buyValue, int sellValue, int rarity)
 {
 	this->name = name;
 	this->level = level;

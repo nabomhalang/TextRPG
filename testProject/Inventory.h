@@ -26,7 +26,7 @@ public:
 	{
 		for (size_t i = 0; i < this->nrOfItem; i++)
 		{
-			cout << this->itemArr[i]->item_debugPrint() << endl;
+			std::cout << this->itemArr[i]->item_debugPrint() << std::endl;
 		}
 	}
 };

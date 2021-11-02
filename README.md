@@ -36,3 +36,7 @@ for (size_t i = 0; i < inven.size(); i++)
 }
 ```
 <img src="./images/itemAdd_example.png">
+
+11-02
+--------------
+## using namespace std; 삭제...

@@ -1,6 +1,6 @@
 #include "Weapon.h"
 
-Weapon::Weapon(int damageMin, int damageMax, string name, int level, int buyValue, int sellValue, int rarity) 
+Weapon::Weapon(int damageMin, int damageMax, std::string name, int level, int buyValue, int sellValue, int rarity)
 	:Item(name, level, buyValue, sellValue, rarity)
 {
 	this->damageMax = damageMax;
@@ -18,9 +18,9 @@ Weapon* Weapon::clone() const
 }
 
 
-string Weapon::toGetInformation()
+std::string Weapon::toGetInformation()
 {
-	string info = to_string(this->damageMin) + " ~ " + to_string(this->damageMax);
+	std::string info = std::to_string(this->damageMin) + " ~ " + std::to_string(this->damageMax);
 
 	return info;
 }

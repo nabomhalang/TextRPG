@@ -5,11 +5,14 @@ Character::Character()
 {
 	this->xPos = 0.0;
 	this->yPos = 0.0;
+	this->distanceTravelled = 0;
 
 	this->name = "";
 	this->level = 0;
 	this->exp = 0;
 	this->expNext = 0;
+
+	this->gold = 0;
 
 	this->vitality = 0;
 	this->dexterity = 0;
@@ -22,6 +25,7 @@ Character::Character()
 	this->damageMin = 0;
 	this->damageMax = 0;
 	this->defence = 0;
+	this->accuracy = 0;
 	this->luck = 0;
 
 	this->statPoints = 0;
@@ -37,13 +41,19 @@ Character::~Character()
 
 
 //Functions
-void Character::initialize(const string name)
+void Character::initialize(const std::string name)
 {
+	this->xPos = 0.0;
+	this->yPos = 0.0;
+	this->distanceTravelled = 0;
+
 	this->name = name;
 	this->level = 1;
 	this->exp = 0;
 	this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
 	
+	this->gold = 1000;
+
 	this->strength = 5;
 	this->vitality = 5;
 	this->dexterity = 5;
@@ -56,6 +66,7 @@ void Character::initialize(const string name)
 	this->damageMin = this->strength;
 	this->damageMax = this->strength + 2;
 	this->defence = this->dexterity + (this->intelligence/2);
+	this->accuracy = (this->dexterity / 2);
 	this->luck = this->intelligence;
 
 	this->statPoints = 0;
@@ -65,21 +76,22 @@ void Character::initialize(const string name)
 void Character::GetChacterStatus() const
 {
 	system("cls");
-	cout << "─────캐릭터 정보──────" << endl;
-	cout << "이름 : " << this->name << endl;
-	cout << "레벨 : " << this->level << endl;
-	cout << "Exp / Next EXP : " << this->exp << " / " << this->expNext << endl;
-	cout << "힘 : " << this->strength << endl;
-	cout << "활력 : " << this->vitality << endl;
-	cout << "손재주 : " << this->dexterity << endl;
-	cout << "지능 : " << this->intelligence << endl;
-	cout << "Hp / Hp Max : " << this->hp << " / " << this->hpMax << endl;
-	cout << "Mp / Mp Max : " << this->mp << " / " << this->mpMax << endl;
-	cout << "공격력 : " << this->damageMin << " ~ " << this->damageMax << endl;
-	cout << "방어력 : " << this->defence << endl;
-	cout << "행운 : " << this->luck << endl;
-	cout << "────────────────" << endl;
-	cout << "계속 하시려면 아무키나 입력해주세요 " << endl;
+	std::cout << "─────캐릭터 정보──────" << std::endl;
+	std::cout << "이름 : " << this->name << std::endl;
+	std::cout << "레벨 : " << this->level << std::endl;
+	std::cout << "Exp / Next EXP : " << this->exp << " / " << this->expNext << std::endl;
+	std::cout << "힘 : " << this->strength << std::endl;
+	std::cout << "활력 : " << this->vitality << std::endl;
+	std::cout << "손재주 : " << this->dexterity << std::endl;
+	std::cout << "지능 : " << this->intelligence << std::endl;
+	std::cout << "Hp / Hp Max : " << this->hp << " / " << this->hpMax << std::endl;
+	std::cout << "Mp / Mp Max : " << this->mp << " / " << this->mpMax << std::endl;
+	std::cout << "공격력 : " << this->damageMin << " ~ " << this->damageMax << std::endl;
+	std::cout << "방어력 : " << this->defence << std::endl;
+	std::cout << "정확도 : " << this->accuracy << std::endl;
+	std::cout << "행운 : " << this->luck << std::endl;
+	std::cout << "────────────────" << std::endl;
+	std::cout << "계속 하시려면 아무키나 입력해주세요 " << std::endl;
 	system("pause > null");
 
 }
@@ -99,17 +111,17 @@ void Character::levelUp()
 	
 }
 
-string Character::getAsString() const
+std::string Character::getAsString() const
 {
-	return to_string(this->xPos) + " "
-		+ to_string(this->yPos) + " "
+	return std::to_string(this->xPos) + " "
+		+ std::to_string(this->yPos) + " "
 		+ this->name + " "
-		+ to_string(this->level) + " "
-		+ to_string(this->exp) + " "
-		+ to_string(this->strength) + " "
-		+ to_string(this->vitality) + " "
-		+ to_string(this->dexterity) + " "
-		+ to_string(this->intelligence) + " "
-		+ to_string(this->skillPoints) + " "
-		+ to_string(this->statPoints);
+		+ std::to_string(this->level) + " "
+		+ std::to_string(this->exp) + " "
+		+ std::to_string(this->strength) + " "
+		+ std::to_string(this->vitality) + " "
+		+ std::to_string(this->dexterity) + " "
+		+ std::to_string(this->intelligence) + " "
+		+ std::to_string(this->skillPoints) + " "
+		+ std::to_string(this->statPoints);
 }

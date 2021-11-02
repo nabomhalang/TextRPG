@@ -24,21 +24,21 @@ void Game::initGame()
 
 void Game::mainMenu()
 {
-	system("cls");
-	cout << "──────메인 메뉴──────" << endl;
-	cout << "0: 끝내기" << endl;
-	cout << "1: 여행가기" << endl;
-	cout << "2: 쇼핑하기" << endl;
-	cout << "3: 레벨업하기" << endl;
-	cout << "4: 쉬기" << endl;
-	cout << "5: 캐릭터 정보" << endl;
-	cout << "6: 캐릭터 만들기" << endl;
-	cout << "7: 캐릭터 저장하기" << endl;
-	cout << "8: 캐릭터 불러오기" << endl;
-	cout << "────────────────" << endl;
+	//system("cls");
+	std::cout << "──────메인 메뉴──────" << std::endl;
+	std::cout << "0: 끝내기" << std::endl;
+	std::cout << "1: 여행가기" << std::endl;
+	std::cout << "2: 쇼핑하기" << std::endl;
+	std::cout << "3: 레벨업하기" << std::endl;
+	std::cout << "4: 쉬기" << std::endl;
+	std::cout << "5: 캐릭터 정보" << std::endl;
+	std::cout << "6: 캐릭터 만들기" << std::endl;
+	std::cout << "7: 캐릭터 저장하기" << std::endl;
+	std::cout << "8: 캐릭터 불러오기" << std::endl;
+	std::cout << "────────────────" << std::endl;
 
-	cout << "선택 : ";
-	cin >> choice;
+	std::cout << "선택 : ";
+	std::cin >> choice;
 
 	switch (choice)
 	{
@@ -51,18 +51,18 @@ void Game::mainMenu()
 		break;
 
 	case 6:
-		cin.ignore();
+		std::cin.ignore();
 		this->CreateNewChacter();
 		this->SaveChacter();
 		break;
 
 	case 7:
-		cin.ignore();
+		std::cin.ignore();
 		this->SaveChacter();
 		break;
 
 	case 8:
-		cin.ignore();
+		std::cin.ignore();
 		this->LoadChacter();
 		break;
 
@@ -73,10 +73,10 @@ void Game::mainMenu()
 
 void Game::CreateNewChacter()
 {
-	string name = "";
+	std::string name = "";
 
-	cout << "캐릭터의 이름을 입력해 주세요 : ";
-	getline(cin, name);
+	std::cout << "캐릭터의 이름을 입력해 주세요 : ";
+	std::getline(std::cin, name);
 
 	characters.push_back(Character());
 
@@ -86,7 +86,7 @@ void Game::CreateNewChacter()
 
 void Game::SaveChacter()
 {
-	ofstream outFile(fileName);
+	std::ofstream outFile(fileName);
 
 	if (outFile.is_open())
 	{
@@ -100,6 +100,11 @@ void Game::SaveChacter()
 }
 
 void Game::LoadChacter()
+{
+
+}
+
+void Game::Travel()
 {
 
 }

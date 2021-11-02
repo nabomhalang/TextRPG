@@ -1,5 +1,6 @@
 #pragma once
 #include "Inventory.h"
+#include "Enemy.h"
 
 class Character
 {
@@ -8,15 +9,15 @@ public:
 	virtual ~Character();
 
 	//Functions
-	void initialize(const string name);
+	void initialize(const std::string name);
 	void GetChacterStatus() const;
 	void levelUp();
-	string getAsString() const;
+	std::string getAsString() const;
 
 	//private_Accessors(Ä¸½¶È­)
 	inline const double& getXpos() const { return this->xPos; }
 	inline const double& getYpos() const { return this->yPos; }
-	inline const string& getName() const { return this->name; }
+	inline const std::string& getName() const { return this->name; }
 	inline const int& getLevel() const { return this->level; }
 	inline const int& getExp() const { return this->exp; }
 	inline const int& getExpNext() const { return this->expNext; }
@@ -27,10 +28,13 @@ public:
 	inline const int& getDamageMin() const { return this->damageMin; }
 	inline const int& getDamageMax() const { return this->damageMax; }
 	inline const int& getDefence() const { return this->defence; }
+	inline const int& getAccuracy() const { return this->accuracy; }
 
 private:
 	double xPos;
 	double yPos;
+
+	int distanceTravelled;
 
 	Inventory inventory;
 	Weapon weapon;
@@ -40,7 +44,9 @@ private:
 	Armor armor_arms;
 	Armor armor_legs;
 
-	string name;
+	int gold;
+
+	std::string name;
 	int level;
 	int exp;
 	int expNext;
@@ -57,6 +63,7 @@ private:
 	int damageMin;
 	int damageMax;
 	int defence;
+	int accuracy;
 	int luck;
 
 	int statPoints;
