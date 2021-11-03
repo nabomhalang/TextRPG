@@ -61,8 +61,6 @@ iint gainExp = (rand() % (chances * character.getLevel() * character.getLuck()))
 ```c++
 void Character::initialize(const std::string name)
 {
-	this->xPos = 0.0;
-	this->yPos = 0.0;
 	this->distanceTravelled = 0;
 
 	this->name = name;
