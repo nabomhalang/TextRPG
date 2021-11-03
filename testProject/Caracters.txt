@@ -1,4 +1,1 @@
-nabomhalang 4 1000 1 13 0 5 5 5 10 0 0 0
-ttset 0 1000 1 0 0 5 5 5 10 0 0 0
-nayeahalang 0 1000 1 0 0 5 5 5 10 0 0 0
-testeste 0 1000 1 0 5 5 5 5 12 8 0 0
+nabomhalang 1 1000 1 13 0 5 5 5 10 0 0 0

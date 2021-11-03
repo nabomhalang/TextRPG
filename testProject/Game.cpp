@@ -125,7 +125,6 @@ void Game::SaveChacter()
 
 void Game::LoadChacter()
 {
-	std::vector<std::string> players;
 	std::ifstream inFile(fileName);
 
 	this->characters.clear();
@@ -149,40 +148,80 @@ void Game::LoadChacter()
 	int luck = 0;
 
 	std::string line = "";
+	std::string space = "";
+	std::vector<std::string> spaces;
 	std::stringstream str;
+	std::stringstream read;
 
+	std::ifstream inFile_re(fileName);
+
+HOME:
+	system("cls");
+	if (inFile_re.is_open())
+	{
+		while (std::getline(inFile_re, line))
+		{
+			space = "";
+			for (size_t i = 0; i < line.size(); i++)
+			{
+				if (line[i] == *" ") break;
+				space += line[i];
+			}
+			spaces.push_back(space);
+		}
+	}
+	inFile_re.close();
+
+	int index = 0;
+	for (const auto& i : spaces) { std::cout << index++ << ": " << i << std::endl; }
+
+	int input;
+	std::cout << "입력: ";
+	std::cin >> input;
+	if (std::cin.fail())
+	{
+		std::cout << "잘못된 입력,.,." << std::endl;
+		std::cin.clear();
+		std::cin.ignore(100, '\n');
+		Sleep(800);
+		goto HOME;
+	}
+	if( input > spaces.size() - 1) goto HOME;
+	
 	if (inFile.is_open())
 	{
-		for (size_t i = 0; i < characters.size(); i++)
-		{
-			std::cout << i << std::endl;
-		}
+		int index = 0, select;
 		while (std::getline(inFile, line))
 		{
-			str.str(line);
-			str >> name;
-			str >> distanceTravelled;
-			str >> gold;
-			str >> level;
-			str >> exp;
-			str >> strength;
-			str >> vitality;
-			str >> dexterity;
-			str >> intelligence;
-			str >> hp;
-			str >> mp;
-			str >> skillPoints;
-			str >> statPoints;
+			if (input == index) {
+				str.str(line);
+				str >> name;
+				str >> distanceTravelled;
+				str >> gold;
+				str >> level;
+				str >> exp;
+				str >> strength;
+				str >> vitality;
+				str >> dexterity;
+				str >> intelligence;
+				str >> hp;
+				str >> mp;
+				str >> skillPoints;
+				str >> statPoints;
 
-			Character temp(name, distanceTravelled, gold, level, exp, strength, vitality, dexterity, intelligence, hp, mp, statPoints, skillPoints);
-			this->characters.push_back(Character(temp));
-			std::cout << name << "으로 로그인 되었습니다\n" << std::endl;
-			Sleep(800);
-
-			str.clear();
+				Character temp(name, distanceTravelled, gold, level, exp, strength, vitality, dexterity, intelligence, hp, mp, statPoints, skillPoints);
+				this->characters.push_back(Character(temp));
+				std::cout << name << " Login !!" << std::endl;
+				Sleep(1000);
+				str.clear();
+				break;
+			}
+			else index++;
 		}
 	}
 	inFile.close();
+
+	
 	if (this->characters.size() <= 0)
 	{
 		throw("고장!! 캐릭터가 없습니다!!");

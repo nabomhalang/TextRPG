@@ -70,7 +70,7 @@ void Event::quzzleEncouter(Character& character)
 		std::cout << std::endl;
 		if (puzzle.getCorrectAnswer() == userAnswer)
 		{
-			int gainExp = (rand() % (chances * character.getLevel() * character.getLuck())) + 5;
+			int gainExp = (rand() % (chances * character.getLevel() * character.getLuck() + 5));
 			completed = false;
 
 			character.gainExp(gainExp);
