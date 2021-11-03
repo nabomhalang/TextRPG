@@ -44,7 +44,11 @@ void Event::quzzleEncouter(Character& character)
 	bool completed = true;
 	int userAnswer = 0;
 	int chances = 3;
-	Puzzle puzzle(".//puzzle//1.txt");
+
+	std::string filePath = ".//puzzle//" + std::to_string(rand() % 2 + 1) + ".txt";
+
+	//std::cout << filePath << std::endl;
+	Puzzle puzzle(filePath);
 	
 
 	while (completed && chances >= 1)

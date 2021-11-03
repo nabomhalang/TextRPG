@@ -115,7 +115,7 @@ void Game::CreateNewChacter()
 	std::cout << "캐릭터의 이름을 입력해 주세요 : ";
 	std::getline(std::cin, name);
 
-	characters.push_back(Character());
+	characters.push_back(Character(name));
 
 	this->activeCharacter = characters.size() - 1;
 	characters[this->activeCharacter].initialize(name);
@@ -127,9 +127,9 @@ void Game::SaveChacter()
 
 	if (outFile.is_open())
 	{
-		for (size_t i = 0; i < characters.size(); i++)
+		for (const auto& character : characters)
 		{
-			outFile << characters[i].getAsString() << "\n";
+			outFile << character.getAsString() << "\n";
 		}
 	}
 
@@ -181,6 +181,7 @@ HOME:
 				space += line[i];
 			}
 			spaces.push_back(space);
+
 		}
 	}
 	inFile_re.close();
@@ -189,9 +190,11 @@ HOME:
 	for (const auto& i : spaces) { std::cout << index++ << ": " << i << std::endl; }
 
 	int input;
+	std::cout << "뒤로가기: b" << std::endl;
 	std::cout << "입력: ";
 	std::cin >> input;
-	if (std::cin.fail())
+	if (input == 'b') return;
+	else if (std::cin.fail())
 	{
 		std::cout << "잘못된 입력,.,." << std::endl;
 		std::cin.clear();
@@ -199,11 +202,12 @@ HOME:
 		Sleep(800);
 		goto HOME;
 	}
-	if( input > spaces.size() - 1) goto HOME;
+	else if (input > spaces.size() - 1) goto HOME;
+	
 	
 	if (inFile.is_open())
 	{
-		int index = 0, select;
+		int index = 0;
 		while (std::getline(inFile, line))
 		{
 			if (input == index) {
@@ -219,10 +223,12 @@ HOME:
 				str >> intelligence;
 				str >> hp;
 				str >> mp;
-				str >> skillPoints;
+				str >> skillPoints; 
 				str >> statPoints;
 
 				Character temp(name, distanceTravelled, gold, level, exp, strength, vitality, dexterity, intelligence, hp, mp, statPoints, skillPoints);
+				temp.initialize(name);
+				this->activeCharacter = characters.size() - 1;
 				this->characters.push_back(Character(temp));
 				std::cout << name << " Login !!" << std::endl;
 				Sleep(1000);
