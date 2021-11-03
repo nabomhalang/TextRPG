@@ -1,1 +1,1 @@
-nabomhalang 1 1000 1 13 0 5 5 5 10 0 0 0
+nabomhalang 8 1000 1 21 0 5 5 5 10 0 0 0

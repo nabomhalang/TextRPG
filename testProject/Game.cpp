@@ -38,11 +38,8 @@ void Game::mainMenu()
 		std::cout << "1: 여행가기" << std::endl;
 		std::cout << "2: 쇼핑하기" << std::endl;
 		std::cout << "3: 쉬기" << std::endl;
-		std::cout << "4: 캐릭터 정보" << std::endl;
-		std::cout << "5: 캐릭터 만들기" << std::endl;
-		std::cout << "6: 캐릭터 저장하기" << std::endl;
-		std::cout << "7: 캐릭터 불러오기" << std::endl;
-		std::cout << "────────────────" << std::endl;
+		std::cout << "4: 캐릭터 설정" << std::endl;
+		std::cout << "─────────────────────" << std::endl;
 
 		std::cout << "선택 : ";
 		std::cin >> choice;
@@ -55,7 +52,6 @@ void Game::mainMenu()
 			Sleep(800);
 			continue;
 		}
-		//std::cin.ignore(100, '\n');
 
 		switch (choice)
 		{
@@ -68,25 +64,42 @@ void Game::mainMenu()
 			break;
 
 		case 4:
-			characters[this->activeCharacter].GetChacterStatus();
-			break;
+			system("cls");
+			std::cout << "──────캐릭터 정보──────" << std::endl;
+			std::cout << "1: 캐릭터 정보" << std::endl;
+			std::cout << "2: 캐릭터 만들기" << std::endl;
+			std::cout << "3: 캐릭터 저장하기" << std::endl;
+			std::cout << "4: 캐릭터 불러오기" << std::endl;
+			std::cout << "5: 뒤로 가기" << std::endl;
+			std::cout << "────────────────────────" << std::endl;
 
-		case 5:
-			std::cin.ignore();
-			this->CreateNewChacter();
-			this->SaveChacter();
-			break;
+			std::cout << "선택 : ";
+			std::cin >> choice;
 
-		case 6:
-			std::cin.ignore();
-			this->SaveChacter();
-			std::cout << "캐릭터가 저장되었습니다!!" << std::endl;
-			Sleep(700);
-			break;
+			switch (choice)
+			{
+			case 1:
+				characters[this->activeCharacter].GetChacterStatus();
+				break;
+			case 2:
+				std::cin.ignore();
+				this->CreateNewChacter();
+				this->SaveChacter();
+				break;
+			case 3:
+				std::cin.ignore();
+				this->SaveChacter();
+				std::cout << "캐릭터가 저장되었습니다!!" << std::endl;
+				Sleep(700);
+				break;
+			case 4:
+				std::cin.ignore();
+				this->LoadChacter();
+				break;
 
-		case 7:
-			std::cin.ignore();
-			this->LoadChacter();
+			default:
+				break;
+			}
 			break;
 
 		default:
