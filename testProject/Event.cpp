@@ -10,14 +10,14 @@ Event::~Event()
 
 }
 
-void Event::generateEvent(Character &character)
+void Event::generateEvent(Character &character, dArrary<Enemy>& enemy)
 {
 	int events = rand() % this->nrOfEvents;
 	//int events = 1; //test case
 	switch (events)
 	{
 	case 0:
-		enemyEncouter(character);
+		enemyEncouter(character, enemy);
 		break;
 
 	case 1:
@@ -32,9 +32,13 @@ void Event::generateEvent(Character &character)
 	}
 }
 
-void Event::enemyEncouter(Character& character)
+void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 {
-	//while()
+	bool giveUp = false, playerDefeated = false, enemyDefeated = false;
+	while (!giveUp && !playerDefeated && !enemyDefeated)
+	{
+
+	}
 }
 
 void Event::quzzleEncouter(Character& character)

@@ -2,7 +2,6 @@
 #include "Inventory.h"
 #include "Enemy.h"
 
-
 class Character
 {
 public:
@@ -15,6 +14,7 @@ public:
 	void levelUp();
 	std::string getAsString() const;
 	void updateStats();
+	void addStatus(int amount, int value);
 
 	//private_Accessors(Ä¸½¶È­)
 	inline const std::string& getName() const { return this->name; }
@@ -31,6 +31,8 @@ public:
 	inline const int& getDefence() const { return this->defence; }
 	inline const int& getAccuracy() const { return this->accuracy; }
 	inline const int& getLuck() const { return this->luck; }
+	inline const int& getStatusPoints() const { return this->statPoints; }
+	inline const int& getskillPoints() const { return this->skillPoints;  }
 
 	inline void setDistTravelled(const int& distance) { this->distanceTravelled = distance; }
 	inline void travel() { this->distanceTravelled++; }

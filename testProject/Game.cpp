@@ -3,6 +3,7 @@
 
 Game::Game()
 {
+	amount = 0;
 	choice = 0;
 	playing = true;
 	activeCharacter = 0;
@@ -26,14 +27,16 @@ void Game::mainMenu()
 {
 	while (this->playing) {
 		system("cls");
+		
 		if (this->characters[this->activeCharacter].getExp() >= this->characters[this->activeCharacter].getExpNext())
 		{
-			std::cout << this->characters[this->activeCharacter].getLevel() << "랩으로 레벨 업 !! \n\n";
+			std::cout << this->characters[this->activeCharacter].getLevel()+1 << "랩으로 레벨 업 !! \n\n";
 			this->characters[this->activeCharacter].levelUp();
 		}
-
+		
 
 		std::cout << "──────메인 메뉴──────" << std::endl;
+		std::cout << "접속중인 캐릭터 = " << this->characters[this->activeCharacter].getName() << " ( " << this->activeCharacter+1 << " / " << this->characters.size() << ") "<< std::endl;
 		std::cout << "0: 끝내기" << std::endl;
 		std::cout << "1: 여행가기" << std::endl;
 		std::cout << "2: 쇼핑하기" << std::endl;
@@ -65,12 +68,14 @@ void Game::mainMenu()
 
 		case 4:
 			system("cls");
-			std::cout << "──────캐릭터 정보──────" << std::endl;
+			std::cout << "──────캐릭터 정보─────────────" << std::endl;
 			std::cout << "1: 캐릭터 정보" << std::endl;
 			std::cout << "2: 캐릭터 만들기" << std::endl;
 			std::cout << "3: 캐릭터 저장하기" << std::endl;
 			std::cout << "4: 캐릭터 불러오기" << std::endl;
-			std::cout << "5: 뒤로 가기" << std::endl;
+			std::cout << "5: 캐릭터 선택하기" << std::endl;
+			std::cout << "6: 레벨 업" << std::endl;
+			std::cout << "7: 뒤로 가기" << std::endl;
 			std::cout << "────────────────────────" << std::endl;
 
 			std::cout << "선택 : ";
@@ -97,6 +102,15 @@ void Game::mainMenu()
 				this->LoadChacter();
 				break;
 
+			case 5:
+				selectCharacter();
+				break;
+
+			case 6:
+				std::cin.ignore();
+				this->levelupCharacter();
+				break;
+
 			default:
 				break;
 			}
@@ -108,6 +122,68 @@ void Game::mainMenu()
 	}
 }
 
+void Game::levelupCharacter()
+{
+	this->characters[this->activeCharacter].levelUp();
+
+	if (this->characters[this->activeCharacter].getStatusPoints() > 0)
+	{
+		std::cout << "당신은 " << this->characters[this->activeCharacter].getStatusPoints() << " 만큼의 포인트를 가지고 있습니다" << std::endl;
+		
+		std::cout << "0: 힘" << std::endl;
+		std::cout << "1: 활력" << std::endl;
+		std::cout << "2: 손재주" << std::endl;
+		std::cout << "3: 지능" << std::endl;
+		
+		std::cout << "어떤 스테이터스를 올리실 껀가요? : ";
+		std::cin >> choice;
+		std::cout << "얼마 만큼 올리실 건가요? : ";
+		std::cin >> amount;
+
+		while (std::cin.fail() || this->choice > 3 || this->characters[this->activeCharacter].getStatusPoints() < this->amount )
+		{
+			std::cout << "잘못된 입력,.,." << std::endl;
+			std::cin.clear();
+			std::cin.ignore(100, '\n');
+			Sleep(800);
+
+			std::cout << "어떤 스테이터스를 올리실 껀가요? : ";
+			std::cin >> choice;
+			std::cout << "얼마 만큼 올리실 건가요? : ";
+			std::cin >> amount;
+		}
+		std::cin.ignore(100, '\n');
+		std::cout << std::endl;
+
+		switch (this->choice)
+		{
+		case 0:
+			this->characters[this->activeCharacter].addStatus(0, this->amount);
+			break;
+
+		case 1:
+			this->characters[this->activeCharacter].addStatus(1, this->amount);
+			break;
+
+		case 2:
+			this->characters[this->activeCharacter].addStatus(2, this->amount);
+			break;
+
+		case 3:
+			this->characters[this->activeCharacter].addStatus(3, this->amount);
+			break;
+
+		default:
+			break;
+		}
+	}
+	else
+	{
+		std::cout << "포인트가 존재하지 않습니다." << std::endl;
+		system("pause");
+	}
+}
+
 void Game::CreateNewChacter()
 {
 	std::string name = "";
@@ -115,10 +191,21 @@ void Game::CreateNewChacter()
 	std::cout << "캐릭터의 이름을 입력해 주세요 : ";
 	std::getline(std::cin, name);
 
-	characters.push_back(Character(name));
+	for (size_t i = 0; i < this->characters.size(); i++)
+	{
+		while (name == this->characters[i].getName())
+		{
+			std::cout << "동일한 이름의 캐릭터가 존재합니다!!" << std::endl;
+
+			std::cout << "캐릭터의 이름을 입력해 주세요 : ";
+			std::getline(std::cin, name);
+		}
+	}
+
+	this->characters.push_back(Character(name));
 
 	this->activeCharacter = characters.size() - 1;
-	characters[this->activeCharacter].initialize(name);
+	this->characters[this->activeCharacter].initialize(name);
 }
 
 void Game::SaveChacter()
@@ -159,92 +246,67 @@ void Game::LoadChacter()
 	int defence = 0;
 	int accuracy = 0;
 	int luck = 0;
-
 	std::string line = "";
-	std::string space = "";
-	std::vector<std::string> spaces;
 	std::stringstream str;
-	std::stringstream read;
-
-	std::ifstream inFile_re(fileName);
-
-HOME:
-	system("cls");
-	if (inFile_re.is_open())
-	{
-		while (std::getline(inFile_re, line))
-		{
-			space = "";
-			for (size_t i = 0; i < line.size(); i++)
-			{
-				if (line[i] == *" ") break;
-				space += line[i];
-			}
-			spaces.push_back(space);
-
-		}
-	}
-	inFile_re.close();
-
-	int index = 0;
-	for (const auto& i : spaces) { std::cout << index++ << ": " << i << std::endl; }
-
-	int input;
-	std::cout << "뒤로가기: b" << std::endl;
-	std::cout << "입력: ";
-	std::cin >> input;
-	if (input == 'b') return;
-	else if (std::cin.fail())
-	{
-		std::cout << "잘못된 입력,.,." << std::endl;
-		std::cin.clear();
-		std::cin.ignore(100, '\n');
-		Sleep(800);
-		goto HOME;
-	}
-	else if (input > spaces.size() - 1) goto HOME;
-	
 	
 	if (inFile.is_open())
 	{
-		int index = 0;
 		while (std::getline(inFile, line))
 		{
-			if (input == index) {
-				str.str(line);
-				str >> name;
-				str >> distanceTravelled;
-				str >> gold;
-				str >> level;
-				str >> exp;
-				str >> strength;
-				str >> vitality;
-				str >> dexterity;
-				str >> intelligence;
-				str >> hp;
-				str >> mp;
-				str >> skillPoints; 
-				str >> statPoints;
+			str.str(line);
+			str >> name;
+			str >> distanceTravelled;
+			str >> gold;
+			str >> level;
+			str >> exp;
+			str >> strength;
+			str >> vitality;
+			str >> dexterity;
+			str >> intelligence;
+			str >> hp;
+			str >> mp;
+			str >> statPoints;
+			str >> skillPoints;
 
-				Character temp(name, distanceTravelled, gold, level, exp, strength, vitality, dexterity, intelligence, hp, mp, statPoints, skillPoints);
-				temp.initialize(name);
-				this->activeCharacter = characters.size() - 1;
-				this->characters.push_back(Character(temp));
-				std::cout << name << " Login !!" << std::endl;
-				Sleep(1000);
-				str.clear();
-				break;
-			}
-			else index++;
+			Character temp(name, distanceTravelled, gold, level, exp, strength, vitality, dexterity, intelligence, hp, mp, statPoints, skillPoints);
+			this->characters.push_back(Character(temp));
+			std::cout << name << " 불러오기 성공" << std::endl;
+
+			str.clear();
 		}
 	}
 	inFile.close();
 
-	
 	if (this->characters.size() <= 0)
+		throw("오류!! 캐릭터가 존재하지 않습니다.");
+	system("pause");
+}
+
+void Game::selectCharacter()
+{
+	system("cls");
+	std::cout << "──────캐릭터 선택─────────────" << std::endl;
+	for (size_t i = 0; i < this->characters.size(); i++)
 	{
-		throw("고장!! 캐릭터가 없습니다!!");
+		std::cout << i << ": " << this->characters[i].getName() << "(" << this->characters[i].getLevel() << ")" << std::endl;
 	}
+	std::cout << "────────────────────────" << std::endl;
+	std::cout << "캐릭터를 선택해주세요 : ";
+	std::cin >> choice;
+
+	while (std::cin.fail() || this->choice < 0 || this->choice >= this->characters.size() )
+	{
+		std::cout << "잘못된 입력,.,." << std::endl;
+		std::cin.clear();
+		std::cin.ignore(100, '\n');
+
+		std::cout << "캐릭터를 선택해주세요 : ";
+		std::cin >> choice;
+	}
+	std::cin.ignore(100, '\n');
+
+	this->activeCharacter = this->choice;
+	std::cout << this->characters[this->activeCharacter].getName() << "가 선택되었습니다." << std::endl;
 }
 
 void Game::Travel()
@@ -252,5 +314,6 @@ void Game::Travel()
 	Event event;
 	this->characters[this->activeCharacter].travel();
 
-	event.generateEvent(this->characters[this->activeCharacter]);
+	event.generateEvent(this->characters[this->activeCharacter], this->enemies);
 }
+

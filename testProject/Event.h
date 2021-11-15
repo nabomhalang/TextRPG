@@ -1,6 +1,7 @@
 #pragma once
 #include "Character.h"
 #include "Puzzle.h"
+#include "dArrary.h"
 #include <stdlib.h>
 #include <cctype>
 
@@ -12,8 +13,8 @@ public:
 	Event();
 	virtual ~Event();
 
-	void generateEvent(Character &character);
-	void enemyEncouter(Character& character);
+	void generateEvent(Character& character, dArrary<Enemy>& enemy);
+	void enemyEncouter(Character& character, dArrary<Enemy>& enemy);
 	void quzzleEncouter(Character& character);
 };
 

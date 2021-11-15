@@ -46,7 +46,7 @@ void Character::initialize(const std::string name)
 
 	this->name = name;
 	this->level = 1;
-	this->exp = 0;
+	this->exp = 1000;
 	this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
 	
 	this->gold = 1000;
@@ -87,6 +87,8 @@ void Character::GetChacterStatus() const
 	std::cout << "방어력 : " << this->defence << std::endl;
 	std::cout << "정확도 : " << this->accuracy << std::endl;
 	std::cout << "행운 : " << this->luck << std::endl;
+	std::cout << "상태 포인트 : " << this->statPoints << std::endl;
+	std::cout << "스킬 포인트 : " << this->skillPoints << std::endl;
 	std::cout << "────────────────" << std::endl;
 	std::cout << "계속 하시려면 아무키나 입력해주세요 " << std::endl;
 	system("pause > null");
@@ -100,9 +102,13 @@ void Character::levelUp()
 		this->exp -= this->expNext;
 		this->level++;
 		this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
+		
 		this->statPoints++;
 		this->skillPoints++;
+
+		this->updateStats();
 	}
+	
 	
 }
 
@@ -123,6 +129,49 @@ std::string Character::getAsString() const
 		+ std::to_string(this->statPoints);
 }
 
+void Character::addStatus(int amount, int value)
+{
+	if (this->statPoints < value) { std::cout << "포인트가 존재하지 않습니다." << std::endl; system("pause");  }
+	else
+	{
+		switch (amount)
+		{
+		case 0:
+			this->strength += value;
+			std::cout << "힘을 " << value << " 만큼 증가시켰습니다!!!" << std::endl;
+			system("pause");
+			break;
+
+		case 1:
+			this->vitality += value;
+			std::cout << "활력을 " << value << " 만큼 증가시켰습니다!!!" << std::endl;
+			system("pause");
+			break;
+
+		case 2:
+			this->dexterity += value;
+			std::cout << "민첩성을 " << value << " 만큼 증가시켰습니다!!!" << std::endl;
+			system("pause");
+			break;
+
+		case 3:
+			this->intelligence += value;
+			std::cout << "지능을 " << value << " 만큼 증가시켰습니다!!!" << std::endl;
+			system("pause");
+			break;
+
+
+		default:
+			std::cout << "포인트가 더 이상 존재하지 않습니다" << std::endl;
+			system("pause");
+			break;
+		}
+
+		this->statPoints -= value;
+	}
+	
+}
+
 void Character::updateStats()
 {
 	this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
@@ -135,7 +184,5 @@ void Character::updateStats()
 	this->defence = this->dexterity + (this->intelligence / 2);
 	this->accuracy = (this->dexterity / 2);
 	this->luck = this->intelligence;
-
-	this->statPoints = 0;
-	this->skillPoints = 0;
 }
+
