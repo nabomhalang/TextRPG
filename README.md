@@ -115,3 +115,25 @@ dArrary<int> ints;
 ```
 <img src="./images/login.png">
 <img src="./images/select_character.png">
+
++ 캐릭터이름(레벨) 로 확인할 수 있으며 옆 숫자는 index입니다.
++ ※주의) 불러오기를 하지 않은체 새로 계정을 만든 후 로그인을 하면 기존에 있는 것들은 싹다 사라집니다.
+이유)
+
+```c++
+void Game::SaveChacter()
+{
+	std::ofstream outFile(fileName);
+
+	if (outFile.is_open())
+	{
+		for (const auto& character : characters)
+		{
+			outFile << character.getAsString() << "\n";
+		}
+	}
+
+	outFile.close();
+}
+```
++ 캐릭터 저장 코드입니다. characters라는 vector를 안을 돌면서 저장을 하기 때문에 불러오기를 하지 않으면 덮어쓰기를 해버립니다.
