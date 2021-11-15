@@ -97,10 +97,11 @@ void Character::initialize(const std::string name)
 
 11-15
 -------------
-+ --간격이 너무 길어서 코드를 까먹어~--
+--간격이 너무 길어서 코드를 까먹어ㅠ--
 #### 계정쪽으로 많은것들이 바뀌였습니다.
 
-+ loading 기능을 완성 시켰습니다. 불러오기로 모든 캐릭터들을 vector에 넣어준 후 select하여 로그인합니다(게임 init 단계에서 해주면 좋을듯 합니다)
++ 이제 시작할때 캐릭터를 불러올 수 있습니다. 원하는 캐릭터 선택은 "캐릭터 선택하기"에 들어가서 선택하실 수 있습니다.
++ loading 기능을 완성 시켰습니다. 불러오기로 모든 캐릭터들을 vector에 넣어준 후 select하여 로그인합니다.
 + statPoint와 skillPoint를 정보창에서 보여주고 레벨업 칸에서 statPoints를 사용하여 기본 4가지의 힘중에 하나를 골라 올릴 수 있습니다.
 + dArray라는 자료구조 완성 : 적들(enemies)를 담기 위해 만들었다.
 
@@ -112,4 +113,5 @@ dArrary<int> ints;
 		std::cout << ints[i] << std::endl;
 	}
 ```
-
+<img src="./images/login.png">
+<img src="./images/select_character.png">
