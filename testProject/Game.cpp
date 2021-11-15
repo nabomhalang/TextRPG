@@ -213,12 +213,8 @@ void Game::SaveChacter()
 	std::ofstream outFile(fileName);
 
 	if (outFile.is_open())
-	{
 		for (const auto& character : characters)
-		{
 			outFile << character.getAsString() << "\n";
-		}
-	}
 
 	outFile.close();
 }
