@@ -107,11 +107,11 @@ void Character::initialize(const std::string name)
 
 ```c++
 dArrary<int> ints;
-	for (size_t i = 0; i < 5; i++)
-	{
-		ints.push(i*3);
-		std::cout << ints[i] << std::endl;
-	}
+for (size_t i = 0; i < 5; i++)
+{
+	ints.push(i*3);
+	std::cout << ints[i] << std::endl;
+}
 ```
 <img src="./images/login.png">
 <img src="./images/select_character.png">
