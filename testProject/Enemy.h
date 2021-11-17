@@ -20,8 +20,11 @@ public:
 
 	inline bool inAlive() { return this->hp > 0; }
 	std::string getInformation() const;
-	inline void takeDamge(int damge) { this->hp -= damge; }
-	inline int getDamge()const { return rand() % this->damgeMin - damgeMax; }
+	void takeDamge(int damge);
+	inline int getDamge()const { return rand() % this->damgeMin + damgeMax; }
 	inline int getExp()const { return this->level * 100; }
+	inline int getHp()const { return this->hp; }
+	inline int getMaxhp()const { return this->hpMax; }
+	inline int getLevel()const { return this->level; }
 };
 

@@ -26,6 +26,7 @@ void Game::initGame()
 void Game::mainMenu()
 {
 	while (this->playing) {
+		//this->characters[this->activeCharacter].updateStats();
 		system("cls");
 		
 		if (this->characters[this->activeCharacter].getExp() >= this->characters[this->activeCharacter].getExpNext())
@@ -35,7 +36,7 @@ void Game::mainMenu()
 		}
 		
 
-		std::cout << "──────메인 메뉴──────" << std::endl;
+		std::cout << "──────메인 메뉴──────────" << std::endl;
 		std::cout << "접속중인 캐릭터 = " << this->characters[this->activeCharacter].getName() << " ( " << this->activeCharacter+1 << " / " << this->characters.size() << ") "<< std::endl;
 		std::cout << "0: 끝내기" << std::endl;
 		std::cout << "1: 여행가기" << std::endl;
@@ -182,6 +183,7 @@ void Game::levelupCharacter()
 		std::cout << "포인트가 존재하지 않습니다." << std::endl;
 		system("pause");
 	}
+	this->characters[this->activeCharacter].updateStats();
 }
 
 void Game::CreateNewChacter()
@@ -214,8 +216,11 @@ void Game::SaveChacter()
 
 	if (outFile.is_open())
 		for (const auto& character : characters)
+		{
+			std::cout << character.getAsString() << std::endl;
 			outFile << character.getAsString() << "\n";
-
+			system("pause");
+		}
 	outFile.close();
 }
 
@@ -261,11 +266,15 @@ void Game::LoadChacter()
 			str >> intelligence;
 			str >> hp;
 			str >> mp;
-			str >> statPoints;
 			str >> skillPoints;
+			str >> statPoints;
+			
 
 			Character temp(name, distanceTravelled, gold, level, exp, strength, vitality, dexterity, intelligence, hp, mp, statPoints, skillPoints);
 			this->characters.push_back(Character(temp));
+			this->activeCharacter = characters.size() - 1;
+			this->characters[this->activeCharacter].updateStats();
+			std::cout << this->characters[this->activeCharacter].getAsString() << std::endl;
 			std::cout << name << " 불러오기 성공" << std::endl;
 
 			str.clear();
@@ -303,6 +312,7 @@ void Game::selectCharacter()
 
 	this->activeCharacter = this->choice;
 	std::cout << this->characters[this->activeCharacter].getName() << "가 선택되었습니다." << std::endl;
+	this->characters[this->activeCharacter].updateStats();
 }
 
 void Game::Travel()

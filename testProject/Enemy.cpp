@@ -9,6 +9,7 @@ Enemy::Enemy(int level)
 	this->damgeMin = this->level * 3;
 	this->damgeMax = this->level * 5;
 	this->dropChance = rand() % 100;
+	this->defence = rand() % 100 * this->level;
 	this->accuracy = rand() % 100;
 }
 
@@ -26,4 +27,13 @@ std::string Enemy::getInformation() const
 		"Á¤È®µµ : " + std::to_string(this->accuracy) + "\n" +
 		"drop : " + std::to_string(this->dropChance) + "%\n";
 
+}
+
+void Enemy::takeDamge(int damge)
+{
+	this->hp -= damge;
+	if (this->hp <= 0)
+	{
+		this->hp = 0;
+	}
 }

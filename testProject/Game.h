@@ -19,6 +19,7 @@ private:
 	std::string fileName;
 
 	//enemy
+	//std::vector<Enemy> enemies;
 	dArrary<Enemy> enemies;
 
 public:

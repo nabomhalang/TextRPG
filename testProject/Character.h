@@ -15,6 +15,8 @@ public:
 	std::string getAsString() const;
 	void updateStats();
 	void addStatus(int amount, int value);
+	void takeDamges(const int damage);
+
 
 	//private_Accessors(Ä¸½¶È­)
 	inline const std::string& getName() const { return this->name; }
@@ -33,10 +35,13 @@ public:
 	inline const int& getLuck() const { return this->luck; }
 	inline const int& getStatusPoints() const { return this->statPoints; }
 	inline const int& getskillPoints() const { return this->skillPoints;  }
-
+	inline const bool& isAlive() { return this->hp > 0; }
+	inline const int& getDmage()const { return rand() % this->damageMax + this->damageMin; }
+	
 	inline void setDistTravelled(const int& distance) { this->distanceTravelled = distance; }
 	inline void travel() { this->distanceTravelled++; }
 	inline void gainExp(const int& exp) { this->exp += exp; }
+	
 
 private:
 

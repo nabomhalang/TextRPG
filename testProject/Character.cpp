@@ -11,7 +11,8 @@ Character::Character(std::string name, int distanceTravelled, int gold, int leve
 	this->expNext = 0;
 
 	this->gold = gold;
-
+	
+	this->strength = strength;
 	this->vitality = vitality;
 	this->dexterity = dexterity;
 	this->intelligence = intelligence;
@@ -61,7 +62,7 @@ void Character::initialize(const std::string name)
 	this->mpMax = this->vitality + (this->strength / 2) + (this->dexterity/3);
 	this->mp = this->mpMax;
 	this->damageMin = this->strength;
-	this->damageMax = this->strength + 2;
+	this->damageMax = this->strength + 6;
 	this->defence = this->dexterity + (this->intelligence/2);
 	this->accuracy = (this->dexterity / 2);
 	this->luck = this->intelligence;
@@ -178,11 +179,21 @@ void Character::updateStats()
 
 	this->hpMax = (this->vitality * 2) + (this->strength / 2);
 	this->hp = this->hpMax;
+	this->mpMax = this->vitality + (this->strength / 2) + (this->dexterity / 3);
 	this->mp = this->mpMax;
 	this->damageMin = this->strength;
-	this->damageMax = this->strength + 2;
+	this->damageMax = this->strength + 6;
 	this->defence = this->dexterity + (this->intelligence / 2);
 	this->accuracy = (this->dexterity / 2);
 	this->luck = this->intelligence;
 }
 
+void Character::takeDamges(const int damage)
+{
+	this->hp -= damage;
+
+	if (this->hp <= 0)
+	{
+		this->hp = 0;
+	}
+}
