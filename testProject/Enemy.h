@@ -26,5 +26,7 @@ public:
 	inline int getHp()const { return this->hp; }
 	inline int getMaxhp()const { return this->hpMax; }
 	inline int getLevel()const { return this->level; }
+	inline int getDefence()const { return this->defence; }
+	inline int getAccuracy()const { return this->accuracy; }
 };
 

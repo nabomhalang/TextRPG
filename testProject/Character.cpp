@@ -64,7 +64,7 @@ void Character::initialize(const std::string name)
 	this->damageMin = this->strength;
 	this->damageMax = this->strength + 6;
 	this->defence = this->dexterity + (this->intelligence/2);
-	this->accuracy = (this->dexterity / 2);
+	this->accuracy = (this->dexterity / 2) + intelligence;
 	this->luck = this->intelligence;
 
 	this->statPoints = 0;
@@ -184,7 +184,7 @@ void Character::updateStats()
 	this->damageMin = this->strength;
 	this->damageMax = this->strength + 6;
 	this->defence = this->dexterity + (this->intelligence / 2);
-	this->accuracy = (this->dexterity / 2);
+	this->accuracy = (this->dexterity / 2) + intelligence;
 	this->luck = this->intelligence;
 }
 

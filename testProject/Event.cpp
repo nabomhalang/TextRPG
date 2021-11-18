@@ -12,8 +12,8 @@ Event::~Event()
 
 void Event::generateEvent(Character &character, dArrary<Enemy>& enemy)
 {
-	int events = rand() % this->nrOfEvents;
-	//int events = 1; //test case
+	//int events = rand() % this->nrOfEvents;
+	int events = 0; //test case
 	switch (events)
 	{
 	case 0:
@@ -39,6 +39,11 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 	int damge;
 	int gainExp;
 	int random_turn = rand() % 2 + 1;
+	int playerTotal = 0;
+	int enemyTotal = 0;
+	int combatTotal = 0;
+	int combatRollPlayer = 0;
+	int combatRollEnemy = 0;
 
 	if (random_turn == 1) playerTurn = true;
 	else playerTurn = false;
@@ -48,7 +53,7 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 	for (size_t i = 0; i < nrOfenemy; i++)
 	{
 		//enemy.push_back(Enemy(character.getLevel()));
-		enemy.push(Enemy(character.getLevel()));
+		enemy.push(Enemy(character.getLevel() + rand()%5+1));
 	}
 
 	int attackRoll = 0; int defendRoll = 0;
@@ -105,12 +110,16 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 			case 1:
 
 				system("cls");
-				std::cout << "───────적 선택──────────" << std::endl;
+				std::cout << "───────적 선택─────────────" << std::endl;
 				for (size_t i = 0; i < enemy.size(); i++)
 				{
-					std::cout << i << ": " << "Level : " << enemy[i].getLevel() << "hp : " <<  enemy[i].getHp() << " / " << enemy[i].getMaxhp() << std::endl;
+					std::cout << i << ": " << 
+						" Level : " << enemy[i].getLevel() << 
+						" hp : " <<  enemy[i].getHp() << " / " << enemy[i].getMaxhp() << 
+						" 방어력: " << enemy[i].getDefence() <<
+						" 정화도 : " << enemy[i].getAccuracy() << std::endl;
 				}
-				std::cout << "─────────────────────" << std::endl;
+				std::cout << "────────────────────────" << std::endl;
 
 				std::cout << "선택 : ";
 				std::cin >> choice;
@@ -126,11 +135,15 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 					std::cin >> choice;
 				}
 				std::cin.ignore(100, '\n');
-
-				attackRoll = (rand() % 100 + 1) + character.getAccuracy();
+				
+				combatTotal = enemy[choice].getDefence() + character.getAccuracy();
+				enemyTotal = (enemy[choice].getDefence() / (double)combatTotal) * 100;
+				playerTotal = (character.getAccuracy() / (double)combatTotal) * 100;
+				combatRollPlayer = rand() % playerTotal + 1;
+				combatRollEnemy = rand() % enemyTotal + 1;
 
 				//알고리즘 수정 해야할 것 같은 부분
-				if (attackRoll > 50)
+				if (combatRollPlayer > combatRollEnemy)
 				{
 					std::cout << "Hit!!" << std::endl;
 
