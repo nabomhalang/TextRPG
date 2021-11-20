@@ -192,3 +192,26 @@ else
 
 + 캐릭터의 속도 공식
 
+<img src="./images/battle.png">
+
++ 배틀창
+
+<img src="./images/attacked.png">
+
++ 공격 당했을때
+
+<img src="./images/enemy_kill.png">
+
++ 적을 죽였을때
+
+<img src="./images/dead.png">
+
++ 캐릭터가 죽었을때, 로드를 하면 가장 최근 저장했던 파일을 읽어와 그때부터 다시 시작할 수 있습니다.
+
+
+### 인터페이스가 바뀌였습니다.
+
+<img src="./images/status_after.png">
+
++ 정보창에 무기, 투구, 상의, 하의, 장갑창이 생깁니다. 골드랑 여행거리가 표시됩니다.
+
