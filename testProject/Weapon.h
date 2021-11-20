@@ -18,4 +18,8 @@ public:
 
 	//Functions
 	std::string toGetInformation();
+
+	inline int getDamageMin()const { return this->damageMax; }
+	inline int getDamageMax()const { return this->damageMin; }
+
 };

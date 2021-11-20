@@ -5,7 +5,7 @@
 class Character
 {
 public:
-	Character(std::string name = "None", int distanceTravelled = 0, int gold = 0, int level = 0, int exp = 0, int strength = 0, int vitality = 0, int dexterity = 0, int intelligence = 0, int hp = 0, int mp = 0, int statPoints = 0, int skillPoints = 0);
+	Character(std::string name = "None", int distanceTravelled = 0, int gold = 0, int level = 0, int exp = 0, int strength = 0, int vitality = 0, int dexterity = 0, int intelligence = 0, int hp = 0, int mp = 0, int statPoints = 0);
 	virtual ~Character();
 
 	//Functions
@@ -34,9 +34,8 @@ public:
 	inline const int& getAccuracy() const { return this->accuracy; }
 	inline const int& getLuck() const { return this->luck; }
 	inline const int& getStatusPoints() const { return this->statPoints; }
-	inline const int& getskillPoints() const { return this->skillPoints;  }
 	inline const bool& isAlive() { return this->hp > 0; }
-	inline const int& getDmage()const { return rand() % this->damageMax + this->damageMin; }
+	inline const int& getDmage()const { return this->damageMax + this->damageMin; }
 	
 	inline void setDistTravelled(const int& distance) { this->distanceTravelled = distance; }
 	inline void travel() { this->distanceTravelled++; }
@@ -78,6 +77,5 @@ private:
 	int luck;
 
 	int statPoints;
-	int skillPoints;
 };
 

@@ -21,7 +21,7 @@ public:
 	inline bool inAlive() { return this->hp > 0; }
 	std::string getInformation() const;
 	void takeDamge(int damge);
-	inline int getDamge()const { return rand() % this->damgeMin + damgeMax; }
+	inline int getDamge()const { return this->damgeMax - this->damgeMin; }
 	inline int getExp()const { return this->level * 100; }
 	inline int getHp()const { return this->hp; }
 	inline int getMaxhp()const { return this->hpMax; }

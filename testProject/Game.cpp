@@ -26,99 +26,140 @@ void Game::initGame()
 void Game::mainMenu()
 {
 	while (this->playing) {
-		//this->characters[this->activeCharacter].updateStats();
 		system("cls");
 		
-		if (this->characters[this->activeCharacter].getExp() >= this->characters[this->activeCharacter].getExpNext())
+		if (this->characters[this->activeCharacter].isAlive())
 		{
-			std::cout << this->characters[this->activeCharacter].getLevel()+1 << "랩으로 레벨 업 !! \n\n";
-			this->characters[this->activeCharacter].levelUp();
-		}
-		
 
-		std::cout << "──────메인 메뉴──────────" << std::endl;
-		std::cout << "접속중인 캐릭터 = " << this->characters[this->activeCharacter].getName() << " ( " << this->activeCharacter+1 << " / " << this->characters.size() << ") "<< std::endl;
-		std::cout << "0: 끝내기" << std::endl;
-		std::cout << "1: 여행가기" << std::endl;
-		std::cout << "2: 쇼핑하기" << std::endl;
-		std::cout << "3: 쉬기" << std::endl;
-		std::cout << "4: 캐릭터 설정" << std::endl;
-		std::cout << "─────────────────────" << std::endl;
+			if (this->characters[this->activeCharacter].getExp() >= this->characters[this->activeCharacter].getExpNext())
+			{
+				std::cout << this->characters[this->activeCharacter].getLevel() + 1 << "랩으로 레벨 업 !! \n\n";
+				this->characters[this->activeCharacter].levelUp();
+			}
 
-		std::cout << "선택 : ";
-		std::cin >> choice;
 
-		if (std::cin.fail())
-		{
-			std::cout << "잘못된 입력,.,." << std::endl;
-			std::cin.clear();
-			std::cin.ignore(100, '\n');
-			Sleep(800);
-			continue;
-		}
-
-		switch (choice)
-		{
-		case 0:
-			playing = false;
-			break;
-
-		case 1:
-			Travel();
-			break;
-
-		case 4:
-			system("cls");
-			std::cout << "──────캐릭터 정보─────────────" << std::endl;
-			std::cout << "1: 캐릭터 정보" << std::endl;
-			std::cout << "2: 캐릭터 만들기" << std::endl;
-			std::cout << "3: 캐릭터 저장하기" << std::endl;
-			std::cout << "4: 캐릭터 불러오기" << std::endl;
-			std::cout << "5: 캐릭터 선택하기" << std::endl;
-			std::cout << "6: 레벨 업" << std::endl;
-			std::cout << "7: 뒤로 가기" << std::endl;
-			std::cout << "────────────────────────" << std::endl;
+			std::cout << "──────메인 메뉴──────────" << std::endl;
+			std::cout << "접속중인 캐릭터 = " << this->characters[this->activeCharacter].getName() << " ( " << this->activeCharacter + 1 << " / " << this->characters.size() << ") " << std::endl;
+			std::cout << "0: 끝내기" << std::endl;
+			std::cout << "1: 여행가기" << std::endl;
+			std::cout << "2: 쇼핑하기" << std::endl;
+			std::cout << "3: 쉬기" << std::endl;
+			std::cout << "4: 캐릭터 설정" << std::endl;
+			std::cout << "─────────────────────" << std::endl;
 
 			std::cout << "선택 : ";
 			std::cin >> choice;
 
+			if (std::cin.fail())
+			{
+				std::cout << "잘못된 입력,.,." << std::endl;
+				std::cin.clear();
+				std::cin.ignore(100, '\n');
+				Sleep(800);
+				continue;
+			}
+
 			switch (choice)
 			{
+			case 0:
+				playing = false;
+				break;
+
 			case 1:
-				characters[this->activeCharacter].GetChacterStatus();
+				Travel();
 				break;
-			case 2:
-				std::cin.ignore();
-				this->CreateNewChacter();
-				this->SaveChacter();
-				break;
-			case 3:
-				std::cin.ignore();
-				this->SaveChacter();
-				std::cout << "캐릭터가 저장되었습니다!!" << std::endl;
-				Sleep(700);
-				break;
+
 			case 4:
-				std::cin.ignore();
-				this->LoadChacter();
-				break;
+				system("cls");
+				std::cout << "──────캐릭터 정보─────────────" << std::endl;
+				std::cout << "1: 캐릭터 정보" << std::endl;
+				std::cout << "2: 캐릭터 만들기" << std::endl;
+				std::cout << "3: 캐릭터 저장하기" << std::endl;
+				std::cout << "4: 캐릭터 불러오기" << std::endl;
+				std::cout << "5: 캐릭터 선택하기" << std::endl;
+				std::cout << "6: 레벨 업" << std::endl;
+				std::cout << "7: 뒤로 가기" << std::endl;
+				std::cout << "────────────────────────" << std::endl;
 
-			case 5:
-				selectCharacter();
-				break;
+				std::cout << "선택 : ";
+				std::cin >> choice;
 
-			case 6:
-				std::cin.ignore();
-				this->levelupCharacter();
+				while (std::cin.fail())
+				{
+					std::cout << "잘못된 입력입니다." << std::endl;
+					std::cin.clear();
+					std::cin.ignore(100, '\n');
+
+					std::cout << "선택 : ";
+					std::cin >> choice;
+				}
+
+				switch (choice)
+				{
+				case 1:
+					characters[this->activeCharacter].GetChacterStatus();
+					break;
+				case 2:
+					std::cin.ignore();
+					this->CreateNewChacter();
+					this->SaveChacter();
+					break;
+				case 3:
+					std::cin.ignore();
+					this->SaveChacter();
+					std::cout << "캐릭터가 저장되었습니다!!" << std::endl;
+					Sleep(700);
+					break;
+				case 4:
+					std::cin.ignore();
+					this->LoadChacter();
+					break;
+
+				case 5:
+					selectCharacter();
+					break;
+
+				case 6:
+					std::cin.ignore();
+					this->levelupCharacter();
+					break;
+
+				default:
+					break;
+				}
 				break;
 
 			default:
 				break;
 			}
-			break;
+		}
+		else
+		{
+			system("cls");
+			std::cout << "당신은 죽었습니다. 로드하겠습니까? " << std::endl;
+			std::cout << "0: yes, 1: no" << std::endl;
 
-		default:
-			break;
+			std::cout << "선택 : ";
+			std::cin >> choice;
+
+			while (std::cin.fail() || this->choice < 0 || this->choice > 1)
+			{
+				std::cout << "잘못된 입력입니다." << std::endl;
+				std::cin.clear();
+				std::cin.ignore(100, '\n');
+
+				std::cout << "당신은 죽었습니다. 로드하겠습니까? " << std::endl;
+				std::cout << "0: yes, 1: no" << std::endl;
+				std::cout << "선택 : ";
+				std::cin >> choice;
+			}
+			std::cin.clear();
+			std::cin.ignore(100, '\n');
+
+			if (this->choice == 0)
+				this->LoadChacter();
+			else
+				this->playing = false;
 		}
 	}
 }
@@ -240,7 +281,6 @@ void Game::LoadChacter()
 	int dexterity = 0;
 	int intelligence = 0;
 	int statPoints = 0;
-	int skillPoints = 0;
 
 	int hp = 0;
 	int mp = 0;
@@ -266,11 +306,10 @@ void Game::LoadChacter()
 			str >> intelligence;
 			str >> hp;
 			str >> mp;
-			str >> skillPoints;
 			str >> statPoints;
 			
 
-			Character temp(name, distanceTravelled, gold, level, exp, strength, vitality, dexterity, intelligence, hp, mp, statPoints, skillPoints);
+			Character temp(name, distanceTravelled, gold, level, exp, strength, vitality, dexterity, intelligence, hp, mp, statPoints);
 			this->characters.push_back(Character(temp));
 			this->activeCharacter = characters.size() - 1;
 			this->characters[this->activeCharacter].updateStats();

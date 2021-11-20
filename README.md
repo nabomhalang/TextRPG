@@ -6,6 +6,7 @@ Text RPG
 + [2일차](#11-02)
 + [3일차](#11-15)
 + [4일차](#11-18)
++ [4일차](#11-21)
 
 10-31
 -------------
@@ -150,3 +151,44 @@ void Game::SaveChacter()
 <img src="./images/battle.png">
 
 <img src="./images/enemy_kill.png">
+
+
+11-21
+-------------
+### 이제 적들이 당신을 공격합니다!!!
+
+```c++
+if (combatRollPlayer < combatRollEnemy)
+{
+	std::cout << "Hit!!" << std::endl;
+	damge = enemy[i].getDamge();
+	character.takeDamges(damge);
+
+	std::cout << damge << "만큼의 데미지를 입었습니다..." << std::endl;
+	std::cout << "현재 HP : " << character.getHp() << " / " << character.getHpMax() << std::endl;
+
+	if (!character.isAlive())
+	{
+		std::cout << "당신은 죽었습니다!!" << std::endl;
+		playerDefeated = true;
+	}
+	system("pause");
+}
+else
+{
+	std::cout << "빗나갔습니다..." << std::endl;
+	system("pause");
+}
+```
+
++ 위의 코드로 플레이어의 속도와 적 속도를 비교하여 어느것이 더 큰지에 따라서 공격을 먼저 시작한다.
++ 위의 코드는 적이 공격하는 코드이다 enemy안에 들어있는 모든 적들이 돌아가며 플레이어를 공격한다.
+
+<img src="./images/enemy_Roll.png">
+
++ 적의 속도 공식
+
+<img src="./images/character_Roll.png">
+
++ 캐릭터의 속도 공식
+

@@ -1,7 +1,7 @@
 #include "Character.h"
 
 
-Character::Character(std::string name, int distanceTravelled, int gold, int level, int exp, int strength, int vitality, int dexterity, int intelligence, int hp, int mp, int statPoints, int skillPoints)
+Character::Character(std::string name, int distanceTravelled, int gold, int level, int exp, int strength, int vitality, int dexterity, int intelligence, int hp, int mp, int statPoints)
 {
 	this->distanceTravelled = distanceTravelled;
 
@@ -28,7 +28,6 @@ Character::Character(std::string name, int distanceTravelled, int gold, int leve
 	this->luck = 0;
 
 	this->statPoints = statPoints;
-	this->skillPoints = skillPoints;
 
 	this->updateStats();
 
@@ -47,7 +46,7 @@ void Character::initialize(const std::string name)
 
 	this->name = name;
 	this->level = 1;
-	this->exp = 1000;
+	this->exp = 0;
 	this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
 	
 	this->gold = 1000;
@@ -68,7 +67,8 @@ void Character::initialize(const std::string name)
 	this->luck = this->intelligence;
 
 	this->statPoints = 0;
-	this->skillPoints = 0;
+
+	this->hp = this->hpMax;
 }
 
 void Character::GetChacterStatus() const
@@ -88,11 +88,24 @@ void Character::GetChacterStatus() const
 	std::cout << "방어력 : " << this->defence << std::endl;
 	std::cout << "정확도 : " << this->accuracy << std::endl;
 	std::cout << "행운 : " << this->luck << std::endl;
-	std::cout << "상태 포인트 : " << this->statPoints << std::endl;
-	std::cout << "스킬 포인트 : " << this->skillPoints << std::endl;
+	std::cout << "상태 포인트 : " << this->statPoints << std::endl << std::endl;
+
+	std::cout << "골드 : " << this->gold << std::endl;
+	std::cout << "여행거리 : " << this->distanceTravelled << std::endl << std::endl;
+
+	std::cout << "무기 : " << this->weapon.getName() << " 레벨 : " << this->weapon.getLevel() 
+		<< " 데미지 : " << this->weapon.getDamageMin() << " / " << this->weapon.getDamageMax() << std::endl;
+	std::cout << "투구 : " << this->armor_head.getName() << " 레벨 : " << this->armor_head.getLevel()
+		<< " 방어력 : " << this->armor_head.getDefence() << std::endl;
+	std::cout << "상의 : " << this->armor_body.getName() << " 레벨 : " << this->armor_body.getLevel()
+		<< " 방어력 : " << this->armor_body.getDefence() << std::endl;
+	std::cout << "하의 : " << this->armor_legs.getName() << " 레벨 : " << this->armor_legs.getLevel()
+		<< " 방어력 : " << this->armor_legs.getDefence() << std::endl;
+	std::cout << "장갑 : " << this->armor_arms.getName() << " 레벨 : " << this->armor_arms.getLevel()
+		<< " 방어력 : " << this->armor_arms.getDefence() << std::endl;
+
 	std::cout << "────────────────" << std::endl;
-	std::cout << "계속 하시려면 아무키나 입력해주세요 " << std::endl;
-	system("pause > null");
+	system("pause");
 
 }
 
@@ -105,7 +118,8 @@ void Character::levelUp()
 		this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
 		
 		this->statPoints++;
-		this->skillPoints++;
+
+		this->hp = this->hpMax;
 
 		this->updateStats();
 	}
@@ -126,7 +140,6 @@ std::string Character::getAsString() const
 		+ std::to_string(this->intelligence) + " "
 		+ std::to_string(this->hp) + " "
 		+ std::to_string(this->mp) + " "
-		+ std::to_string(this->skillPoints) + " "
 		+ std::to_string(this->statPoints);
 }
 
@@ -169,6 +182,8 @@ void Character::addStatus(int amount, int value)
 		}
 
 		this->statPoints -= value;
+
+		this->updateStats();
 	}
 	
 }
@@ -177,7 +192,7 @@ void Character::updateStats()
 {
 	this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
 
-	this->hpMax = (this->vitality * 2) + (this->strength / 2);
+	this->hpMax = (this->vitality * 2) + (this->strength / 2) + this->level*5;
 	this->hp = this->hpMax;
 	this->mpMax = this->vitality + (this->strength / 2) + (this->dexterity / 3);
 	this->mp = this->mpMax;

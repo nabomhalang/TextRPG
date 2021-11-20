@@ -5,12 +5,11 @@ Enemy::Enemy(int level)
 	this->level = level;
 	this->hpMax = level * 10;
 	this->hp = this->hpMax;
-	this->defence = this->level * 4;
-	this->damgeMin = this->level * 3;
-	this->damgeMax = this->level * 5;
+	this->damgeMin = this->level * 1;
+	this->damgeMax = this->level * 2;
 	this->dropChance = rand() % 100 + 1;
-	this->defence = rand() % level*5 + 1;
-	this->accuracy = rand() % level*5 + 1;
+	this->defence = rand() % level*3 + 1;
+	this->accuracy = rand() % level*3 + 1;
 }
 
 Enemy::~Enemy()

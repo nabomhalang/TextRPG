@@ -52,8 +52,7 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 
 	for (size_t i = 0; i < nrOfenemy; i++)
 	{
-		//enemy.push_back(Enemy(character.getLevel()));
-		enemy.push(Enemy(character.getLevel() + rand()%5+1));
+		enemy.push(Enemy(character.getLevel() + rand()%2+1));
 	}
 
 	int attackRoll = 0; int defendRoll = 0;
@@ -74,6 +73,7 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 			
 			system("cls");
 			std::cout << "──────배틀 메뉴──────────" << std::endl;
+			std::cout << "현재 HP : " << character.getHp() << " / " << character.getHpMax() << std::endl;
 			std::cout << "0: 탈출하기" << std::endl;
 			std::cout << "1. 공격하기" << std::endl;
 			std::cout << "2. 방어하기" << std::endl;
@@ -90,6 +90,7 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 				std::cin.clear();
 				std::cin.ignore(100, '\n');
 				std::cout << "──────배틀 메뉴──────────" << std::endl;
+				std::cout << "현재 HP : " << character.getHp() << " / " << character.getHpMax() << std::endl;
 				std::cout << "0: 탈출하기" << std::endl;
 				std::cout << "1. 공격하기" << std::endl;
 				std::cout << "2. 방어하기" << std::endl;
@@ -142,6 +143,11 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 				combatRollPlayer = rand() % playerTotal + 1;
 				combatRollEnemy = rand() % enemyTotal + 1;
 
+				system("cls");
+				std::cout << "───────────내 턴───────────" << std::endl;
+				std::cout << "플레이어 속도 : " << combatRollPlayer << std::endl;
+				std::cout << "적 속도 : " << combatRollEnemy << std::endl;
+
 				//알고리즘 수정 해야할 것 같은 부분
 				if (combatRollPlayer > combatRollEnemy)
 				{
@@ -151,6 +157,7 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 					enemy[choice].takeDamge(damge);
 
 					std::cout << damge << "만큼의 데미지를 입혔습니다." << std::endl;
+					std::cout << "현재 HP : " << character.getHp() << " / " << character.getHpMax() << std::endl;
 
 					if (!enemy[choice].inAlive())
 					{
@@ -186,7 +193,42 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 		{
 			for (size_t i = 0; i < enemy.size(); i++)
 			{
+				system("cls");
+				std::cout << "───────────적 턴───────────" << std::endl;
+				std::cout << "적 : " << i << std::endl << std::endl;
 
+				combatTotal = enemy[i].getDefence() + character.getAccuracy();
+				enemyTotal = (enemy[i].getDefence() / (double)combatTotal) * 100;
+				playerTotal = (character.getAccuracy() / (double)combatTotal) * 100;
+				combatRollPlayer = rand() % playerTotal + 1;
+				combatRollEnemy = rand() % enemyTotal + 1;
+
+				std::cout << "\n플레이어 속도 : " << combatRollPlayer << std::endl;
+				std::cout << "적 속도 : " << combatRollEnemy << std::endl;
+
+				//알고리즘 수정 해야할 것 같은 부분
+				if (combatRollPlayer < combatRollEnemy)
+				{
+					std::cout << "Hit!!" << std::endl;
+
+					damge = enemy[i].getDamge();
+					character.takeDamges(damge);
+
+					std::cout << damge << "만큼의 데미지를 입었습니다..." << std::endl;
+					std::cout << "현재 HP : " << character.getHp() << " / " << character.getHpMax() << std::endl;
+
+					if (!character.isAlive())
+					{
+						std::cout << "당신은 죽었습니다!!" << std::endl;
+						playerDefeated = true;
+					}
+					system("pause");
+				}
+				else
+				{
+					std::cout << "빗나갔습니다..." << std::endl;
+					system("pause");
+				}
 			}
 
 			playerTurn = true;
