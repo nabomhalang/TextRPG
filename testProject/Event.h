@@ -17,5 +17,6 @@ public:
 	void enemyEncouter(Character& character, dArrary<Enemy>& enemy);
 	//void enemyEncouter(Character& character, std::vector<Enemy>& enemy);
 	void quzzleEncouter(Character& character);
+	void chacterRest(Character& character);
 };
 

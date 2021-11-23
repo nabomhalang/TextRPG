@@ -7,6 +7,7 @@ int main(void)
 
 	srand(time(NULL));
 	Game game;
+
 	std::ifstream characters;
 	
 	characters.open(game.getFilename());

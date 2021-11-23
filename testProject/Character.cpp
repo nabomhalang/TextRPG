@@ -56,7 +56,7 @@ void Character::initialize(const std::string name)
 	this->dexterity = 5;
 	this->intelligence = 5;
 	
-	this->hpMax = (this->vitality * 2) + (this->strength/2);
+	this->hpMax = (this->vitality * 2) + (this->strength / 2) + this->level * 5;
 	this->hp = this->hpMax;
 	this->mpMax = this->vitality + (this->strength / 2) + (this->dexterity/3);
 	this->mp = this->mpMax;
@@ -68,7 +68,7 @@ void Character::initialize(const std::string name)
 
 	this->statPoints = 0;
 
-	this->hp = this->hpMax;
+	
 }
 
 void Character::GetChacterStatus() const
@@ -119,7 +119,6 @@ void Character::levelUp()
 		
 		this->statPoints++;
 
-		this->hp = this->hpMax;
 
 		this->updateStats();
 	}
@@ -193,7 +192,7 @@ void Character::updateStats()
 	this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
 
 	this->hpMax = (this->vitality * 2) + (this->strength / 2) + this->level*5;
-	this->hp = this->hpMax;
+	
 	this->mpMax = this->vitality + (this->strength / 2) + (this->dexterity / 3);
 	this->mp = this->mpMax;
 	this->damageMin = this->strength;

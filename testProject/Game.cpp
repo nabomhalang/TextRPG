@@ -24,6 +24,8 @@ void Game::initGame()
 
 void Game::mainMenu()
 {
+	Event evn;
+
 	while (this->playing) {
 		system("cls");
 		
@@ -67,6 +69,10 @@ void Game::mainMenu()
 
 			case 1:
 				Travel();
+				break;
+
+			case 3:
+				evn.chacterRest(this->characters[this->activeCharacter]);
 				break;
 
 			case 4:
@@ -258,11 +264,10 @@ void Game::SaveChacter()
 	if (outFile.is_open())
 		for (const auto& character : characters)
 		{
-			std::cout << character.getAsString() << std::endl;
 			outFile << character.getAsString() << "\n";
-			system("pause");
 		}
 	outFile.close();
+	system("pause");
 }
 
 void Game::LoadChacter()
@@ -313,7 +318,6 @@ void Game::LoadChacter()
 			this->characters.push_back(Character(temp));
 			this->activeCharacter = characters.size() - 1;
 			this->characters[this->activeCharacter].updateStats();
-			//std::cout << this->characters[this->activeCharacter].getAsString() << std::endl;
 			std::cout << name << " 불러오기 성공" << std::endl;
 
 			str.clear();
@@ -321,8 +325,11 @@ void Game::LoadChacter()
 	}
 	inFile.close();
 
-	if (this->characters.size() <= 0)
-		throw("오류!! 캐릭터가 존재하지 않습니다.");
+	if (this->characters.size() <= 0) {
+		std::cout << "캐릭터가 존재하지 않습니다" << std::endl;
+	}
+		
+		
 	system("pause");
 }
 

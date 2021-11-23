@@ -138,7 +138,7 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 				}
 				std::cin.ignore(100, '\n');
 				
-				combatTotal = enemy[choice].getDefence() + character.getAccuracy();
+				combatTotal = enemy[choice].getAccuracy() + character.getDefence();
 				enemyTotal = (enemy[choice].getDefence() / (double)combatTotal) * 100;
 				playerTotal = (character.getAccuracy() / (double)combatTotal) * 100;
 				combatRollPlayer = rand() % playerTotal + 1;
@@ -202,7 +202,7 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 				std::cout << "───────────적 턴───────────" << std::endl;
 				std::cout << "적 : " << i << std::endl << std::endl;
 
-				combatTotal = enemy[i].getDefence() + character.getAccuracy();
+				combatTotal = enemy[choice].getAccuracy() + character.getDefence();
 				enemyTotal = (enemy[i].getDefence() / (double)combatTotal) * 100;
 				playerTotal = (character.getAccuracy() / (double)combatTotal) * 100;
 				combatRollPlayer = rand() % playerTotal + 1;
@@ -280,10 +280,14 @@ void Event::quzzleEncouter(Character& character)
 		if (puzzle.getCorrectAnswer() == userAnswer)
 		{
 			int gainExp = (rand() % (chances * character.getLevel() * character.getLuck() + 5));
+			int gainGold = (rand() % (chances * character.getLevel() * character.getLuck() + 10));
 			completed = false;
 
+			character.gainGold(gainGold);
 			character.gainExp(gainExp);
+
 			std::cout << gainExp << "만큼의 경험치를 얻었습니다" << std::endl;
+			std::cout << gainGold << "만큼의 골드를 얻었습니다" << std::endl;
 			Sleep(1000);
 		}
 		else 
@@ -303,4 +307,22 @@ void Event::quzzleEncouter(Character& character)
 		std::cout << "실패하였습니다...\n";
 		Sleep(1200);
 	}
+}
+
+void Event::chacterRest(Character& character)
+{
+	int requestCost = (character.getHpMax() - character.getHp()) * 2;
+
+	if (character.getHp() == character.getHpMax())
+		std::cout << "당신은 이미 hp가 가득 차 있습니다. 여행을 떠나십시오!!" << std::endl;
+	else if (character.getGold() >= requestCost) {
+		system("cls");
+		std::cout << "────────휴식하는 곳────────" << std::endl;
+		system("pause");
+	}
+	else
+	{
+		std::cout << "당신은 휴식을 취하는데 필요한 골드를 충분히 가지고 있지 않습니다..." << std::endl;
+	}
+	system("pause");
 }

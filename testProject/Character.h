@@ -36,7 +36,8 @@ public:
 	inline const int& getStatusPoints() const { return this->statPoints; }
 	inline const bool& isAlive() { return this->hp > 0; }
 	inline const int& getDmage()const { return this->damageMax + this->damageMin; }
-	
+	inline const int& getGold()const { return this->gold; }
+
 	inline void setDistTravelled(const int& distance) { this->distanceTravelled = distance; }
 	inline void travel() { this->distanceTravelled++; }
 	inline void gainExp(const int exp) { this->exp += exp; }
