@@ -23,6 +23,7 @@ public:
 	void takeDamge(int damge);
 	inline int getDamge()const { return this->damgeMax - this->damgeMin; }
 	inline int getExp()const { return this->level * 100; }
+	inline int getGold()const { return rand() % this->level * 100 + 1; }
 	inline int getHp()const { return this->hp; }
 	inline int getMaxhp()const { return this->hpMax; }
 	inline int getLevel()const { return this->level; }

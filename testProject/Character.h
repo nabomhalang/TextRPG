@@ -39,7 +39,8 @@ public:
 	
 	inline void setDistTravelled(const int& distance) { this->distanceTravelled = distance; }
 	inline void travel() { this->distanceTravelled++; }
-	inline void gainExp(const int& exp) { this->exp += exp; }
+	inline void gainExp(const int exp) { this->exp += exp; }
+	inline void gainGold(const int gold) { this->gold += gold; }
 	
 
 private:

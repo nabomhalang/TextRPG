@@ -7,7 +7,7 @@ Game::Game()
 	choice = 0;
 	playing = true;
 	activeCharacter = 0;
-	fileName = "Caracters.txt";
+	fileName = "Characters.txt";
 
 }
 
@@ -21,7 +21,6 @@ void Game::initGame()
 {
 	this->CreateNewChacter();
 }
-
 
 void Game::mainMenu()
 {
@@ -63,6 +62,7 @@ void Game::mainMenu()
 			{
 			case 0:
 				playing = false;
+				this->SaveChacter();
 				break;
 
 			case 1:
@@ -313,7 +313,7 @@ void Game::LoadChacter()
 			this->characters.push_back(Character(temp));
 			this->activeCharacter = characters.size() - 1;
 			this->characters[this->activeCharacter].updateStats();
-			std::cout << this->characters[this->activeCharacter].getAsString() << std::endl;
+			//std::cout << this->characters[this->activeCharacter].getAsString() << std::endl;
 			std::cout << name << " 불러오기 성공" << std::endl;
 
 			str.clear();

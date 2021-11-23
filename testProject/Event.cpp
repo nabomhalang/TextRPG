@@ -38,6 +38,7 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 	int choice;
 	int damge;
 	int gainExp;
+	int gainGold;
 	int random_turn = rand() % 2 + 1;
 	int playerTotal = 0;
 	int enemyTotal = 0;
@@ -162,9 +163,13 @@ void Event::enemyEncouter(Character& character, dArrary<Enemy>& enemy)
 					if (!enemy[choice].inAlive())
 					{
 						gainExp = enemy[choice].getExp();
+						gainGold = enemy[choice].getGold();
 						std::cout << "적이 죽었습니다!!" << std::endl;
 						character.gainExp(gainExp);
+						character.gainGold(gainGold);
 						std::cout << gainExp << "만큼의 경험치를 얻었습니다!!" << std::endl;
+						std::cout << gainGold << "만큼의 골드를 얻었습니다!!" << std::endl;
+
 						enemy.remove(choice);
 					}
 					system("pause");

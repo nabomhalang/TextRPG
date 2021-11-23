@@ -37,6 +37,7 @@ public:
 	void selectCharacter();
 
 	inline bool getPlaying() const { return this->playing; }
+	inline const std::string getFilename() { return this->fileName; }
 
 
 };
