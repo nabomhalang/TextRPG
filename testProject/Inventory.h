@@ -18,7 +18,7 @@ public:
 	Inventory(const Inventory& obj);
 	inline int size() const { return this->nrOfItem; }
 	Item& operator[](const int index);;
-
+	void operator=(const Inventory& obj);
 	void addItem(const Item& item);
 	void removeItem(int index);
 

@@ -30,7 +30,6 @@ Character::Character(std::string name, int distanceTravelled, int gold, int leve
 	this->statPoints = statPoints;
 
 	this->updateStats();
-
 }
 
 Character::~Character()
@@ -56,7 +55,7 @@ void Character::initialize(const std::string name)
 	this->dexterity = 5;
 	this->intelligence = 5;
 	
-	this->hpMax = (this->vitality * 2) + (this->strength / 2) + this->level * 5;
+	this->hpMax = (this->vitality * 10) + (this->strength) + this->level * 5;
 	this->hp = this->hpMax;
 	this->mpMax = this->vitality + (this->strength / 2) + (this->dexterity/3);
 	this->mp = this->mpMax;
@@ -84,8 +83,8 @@ void Character::GetChacterStatus() const
 	std::cout << "지능 : " << this->intelligence << std::endl;
 	std::cout << "Hp / Hp Max : " << this->hp << " / " << this->hpMax << std::endl;
 	std::cout << "Mp / Mp Max : " << this->mp << " / " << this->mpMax << std::endl;
-	std::cout << "데미지 : " << this->damageMin << " ~ " << this->damageMax << std::endl;
-	std::cout << "방어력 : " << this->defence << std::endl;
+	std::cout << "데미지 : " << this->damageMin << "( +" << this->weapon.getDamageMin() << " )" << " ~ " << this->damageMax << "( +" << this->weapon.getDamageMax() << " )" << std::endl;
+	std::cout << "방어력 : " << this->defence <<"( +"<< this->getAddDefence() << " )" << std::endl;
 	std::cout << "정확도 : " << this->accuracy << std::endl;
 	std::cout << "행운 : " << this->luck << std::endl;
 	std::cout << "상태 포인트 : " << this->statPoints << std::endl << std::endl;
@@ -93,16 +92,16 @@ void Character::GetChacterStatus() const
 	std::cout << "골드 : " << this->gold << std::endl;
 	std::cout << "여행거리 : " << this->distanceTravelled << std::endl << std::endl;
 
-	std::cout << "무기 : " << this->weapon.getName() << " 레벨 : " << this->weapon.getLevel() 
-		<< " 데미지 : " << this->weapon.getDamageMin() << " / " << this->weapon.getDamageMax() << std::endl;
-	std::cout << "투구 : " << this->armor_head.getName() << " 레벨 : " << this->armor_head.getLevel()
-		<< " 방어력 : " << this->armor_head.getDefence() << std::endl;
-	std::cout << "상의 : " << this->armor_body.getName() << " 레벨 : " << this->armor_body.getLevel()
-		<< " 방어력 : " << this->armor_body.getDefence() << std::endl;
-	std::cout << "하의 : " << this->armor_legs.getName() << " 레벨 : " << this->armor_legs.getLevel()
-		<< " 방어력 : " << this->armor_legs.getDefence() << std::endl;
-	std::cout << "장갑 : " << this->armor_arms.getName() << " 레벨 : " << this->armor_arms.getLevel()
-		<< " 방어력 : " << this->armor_arms.getDefence() << std::endl;
+	std::cout << "무기 : " << this->weapon.getName() << " | 레벨 : " << this->weapon.getLevel() 
+		<< " | 데미지 : " << this->weapon.getDamageMin() << " - " << this->weapon.getDamageMax() << std::endl;
+	std::cout << "투구 : " << this->armor_head.getName() << " | 레벨 : " << this->armor_head.getLevel()
+		<< " | 방어력 : " << this->armor_head.getDefence() << std::endl;
+	std::cout << "상의 : " << this->armor_body.getName() << " | 레벨 : " << this->armor_body.getLevel()
+		<< " | 방어력 : " << this->armor_body.getDefence() << std::endl;
+	std::cout << "하의 : " << this->armor_legs.getName() << " | 레벨 : " << this->armor_legs.getLevel()
+		<< " | 방어력 : " << this->armor_legs.getDefence() << std::endl;
+	std::cout << "장갑 : " << this->armor_arms.getName() << " | 레벨 : " << this->armor_arms.getLevel()
+		<< " | 방어력 : " << this->armor_arms.getDefence() << std::endl;
 
 	std::cout << "────────────────" << std::endl;
 	system("pause");
@@ -139,7 +138,45 @@ std::string Character::getAsString() const
 		+ std::to_string(this->intelligence) + " "
 		+ std::to_string(this->hp) + " "
 		+ std::to_string(this->mp) + " "
-		+ std::to_string(this->statPoints);
+		+ std::to_string(this->statPoints) + " "
+		+ this->weapon.toStirngSave()
+		+ this->armor_head.toStirngSave()
+		+ this->armor_body.toStirngSave()
+		+ this->armor_arms.toStirngSave()
+		+ this->armor_legs.toStirngSave();
+}
+
+std::string Character::getInventoryAsString() 
+{
+	std::string inv;
+
+	for (size_t i = 0; i < this->inventory.size(); i++)
+	{
+		inv += std::to_string(i) + ": " + this->inventory[i].toStirng() + "\n";
+	}
+
+	return inv;
+}
+
+std::string Character::getInventoryAsStringSave()
+{
+	std::string inv;
+
+	for (size_t i = 0; i < this->inventory.size(); i++)
+	{
+		if (this->inventory[i].getItemType() == ItemType::WEAPON)
+			inv += this->inventory[i].toStirngSave();
+	}
+
+	inv += "\n";
+	
+	for (size_t i = 0; i < this->inventory.size(); i++)
+	{
+		if (this->inventory[i].getItemType() == ItemType::ARMOR)
+			inv += this->inventory[i].toStirngSave();
+	}
+
+	return inv;
 }
 
 void Character::addStatus(int amount, int value)
@@ -191,7 +228,7 @@ void Character::updateStats()
 {
 	this->expNext = static_cast<int>((50 / 3) * ((pow(level, 3) - 6 * pow(level, 2) + 17 * level) - 12) + 100); //레벨 필요치 알고리즘
 
-	this->hpMax = (this->vitality * 2) + (this->strength / 2) + this->level*5;
+	this->hpMax = (this->vitality * 10) + (this->strength) + this->level*5;
 	
 	this->mpMax = this->vitality + (this->strength / 2) + (this->dexterity / 3);
 	this->mp = this->mpMax;
@@ -210,4 +247,71 @@ void Character::takeDamges(const int damage)
 	{
 		this->hp = 0;
 	}
+}
+
+void Character::equipItem(unsigned index)
+{
+	if (index < 0 || index > this->inventory.size())
+	{
+		std::cout << "잘못된 인덱스 접근입니다." << std::endl;
+	}
+	else
+	{
+		Weapon* w = nullptr;
+		w = dynamic_cast<Weapon*>(&this->inventory[index]);
+
+		Armor* a = nullptr;
+		a = dynamic_cast<Armor*>(&this->inventory[index]);
+
+		if (w != nullptr)
+		{
+			if (this->weapon.getRarity() >= 0)
+				this->inventory.addItem(this->weapon);
+			this->weapon = *w;
+			this->inventory.removeItem(index);
+		}
+		else if (a != nullptr)
+		{
+			switch (a->getType())
+			{
+			case arrmorType::HEAD:
+				if (this->armor_head.getRarity() >= 0)
+					this->inventory.addItem(this->armor_head);
+				this->armor_head = *a;
+				this->inventory.removeItem(index);
+				break;
+
+			case arrmorType::CHEST:
+				if (this->armor_body.getRarity() >= 0)
+					this->inventory.addItem(this->armor_body);
+				this->armor_body = *a;
+				this->inventory.removeItem(index);
+				break;
+
+			case arrmorType::ARMS:
+				if (this->armor_arms.getRarity() >= 0)
+					this->inventory.addItem(this->armor_arms);
+				this->armor_arms = *a;
+				this->inventory.removeItem(index);
+				break;
+
+			case arrmorType::LEGS:
+				if(this->armor_legs.getRarity() >= 0)
+					this->inventory.addItem(this->armor_legs);
+				this->armor_legs = *a;
+				this->inventory.removeItem(index);
+				break;
+
+			default:
+				std::cout << "존재하지 않는 종류입니다..." << std::endl;
+				break;
+			}
+		}
+		else
+		{
+			std::cout << "에러가 발생하였습니다..." << std::endl;
+			system("pause");
+		}
+	}
+	
 }

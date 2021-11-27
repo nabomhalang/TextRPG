@@ -35,6 +35,8 @@ public:
 	void Travel();
 	void levelupCharacter();
 	void selectCharacter();
+	void characterMenu();
+	void inventoryEquip();
 
 	inline bool getPlaying() const { return this->playing; }
 	inline const std::string getFilename() { return this->fileName; }

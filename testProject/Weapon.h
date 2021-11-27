@@ -8,8 +8,10 @@ private:
 	int damageMax;
 
 public:
-	Weapon(int damageMin = 0, int damageMax = 0, std::string name = "None", int level = 0,
-		int buyValue = 0, int sellValue = 0, int rarity = 0);
+	Weapon();
+	Weapon(int level, int rarity);
+	Weapon(int damageMin, int damageMax, std::string name, int level,
+		int buyValue, int sellValue, int rarity);
 	virtual ~Weapon();
 
 
@@ -19,7 +21,12 @@ public:
 	//Functions
 	std::string toGetInformation();
 
-	inline int getDamageMin()const { return this->damageMax; }
-	inline int getDamageMax()const { return this->damageMin; }
+	inline int getDamageMin()const { return this->damageMin; }
+	inline int getDamageMax()const { return this->damageMax; }
 
+	std::string toStirng()const;
+	std::string toStirngSave()const;
+
+	static dArrary<std::string> names;
+	static void initNames();
 };

@@ -13,10 +13,13 @@ public:
 	void GetChacterStatus() const;
 	void levelUp();
 	std::string getAsString() const;
+	std::string getInventoryAsString();
+	std::string getInventoryAsStringSave();
 	void updateStats();
 	void addStatus(int amount, int value);
 	void takeDamges(const int damage);
-
+	void addItem(const Item& Item) { this->inventory.addItem(Item); }
+	void equipItem(unsigned index);
 
 	//private_Accessors(Ä¸½¶È­)
 	inline const std::string& getName() const { return this->name; }
@@ -35,14 +38,22 @@ public:
 	inline const int& getLuck() const { return this->luck; }
 	inline const int& getStatusPoints() const { return this->statPoints; }
 	inline const bool& isAlive() { return this->hp > 0; }
-	inline const int& getDmage()const { return this->damageMax + this->damageMin; }
+	inline const int& getDmage()const { return rand() % ( this->damageMax + this->weapon.getDamageMax() ) + ( this->damageMin + this->weapon.getDamageMin() ); }
 	inline const int& getGold()const { return this->gold; }
+	inline const int getInventorySize()const { return this->inventory.size(); }
+	inline const int getAddDefence()const { return this->armor_arms.getDefence() + this->armor_body.getDefence() + this->armor_head.getDefence() + this->armor_legs.getDefence(); }
 
+	inline void resetHp() { this->hp = this->hpMax; }
 	inline void setDistTravelled(const int& distance) { this->distanceTravelled = distance; }
 	inline void travel() { this->distanceTravelled++; }
 	inline void gainExp(const int exp) { this->exp += exp; }
 	inline void gainGold(const int gold) { this->gold += gold; }
-	
+	inline void payGold(const int spend) { this->gold -= spend; }
+	inline void setWeapon(Weapon weapon) { this->weapon = weapon; }
+	inline void setArmorHead(Armor haed) { this->armor_head = haed; }
+	inline void setArmorBody(Armor body) { this->armor_body = body; }
+	inline void setArmorArms(Armor arms) { this->armor_arms = arms; }
+	inline void setArmorLegs(Armor legs) { this->armor_legs = legs; }
 
 private:
 

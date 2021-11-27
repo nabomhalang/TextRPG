@@ -7,21 +7,27 @@ class Armor : public Item
 {
 private:
 	int type;
+	std::string typeStr;
 	int defence;
 
 public:
-	Armor(int type = 0, int defence = 0, std::string name = "None", int level = 0,
-		int buyValue = 0, int sellValue = 0, int rarity = 0);
+	Armor();
+	Armor(int level, int rarity);
+	Armor(int type, int defence, std::string name, int level,
+		int buyValue, int sellValue, int rarity);
 	virtual ~Armor();
 
 	//virtual
 	virtual Armor* clone() const;
-
+	
 	//Functions
-	std::string toGetInformation();
 
 	inline int getDefence()const { return this->defence; }
 	inline int getType()const { return this->type; }
 
-};
+	std::string toStirng()const;
+	std::string toStirngSave()const;
 
+	static dArrary<std::string> names;
+	static void initNames();
+};

@@ -37,6 +37,26 @@ Item& Inventory::operator[](const int index)
 	return *this->itemArr[index];
 }
 
+void Inventory::operator=(const Inventory& obj)
+{
+	for (size_t i = 0; i < this->nrOfItem; i++)
+	{
+		delete this->itemArr[i];
+	}
+	delete[] this->itemArr;
+
+	this->cap = obj.cap;
+	this->nrOfItem = obj.nrOfItem;
+	this->itemArr = new Item * [this->cap];
+
+	for (size_t i = 0; i < nrOfItem; i++)
+	{
+		this->itemArr[i] = obj.itemArr[i]->clone();
+	}
+
+	this->initialize(this->nrOfItem);
+}
+
 void Inventory::initialize(const int from)
 {
 	for (size_t i = from; i < this->cap; i++)
@@ -57,6 +77,14 @@ void Inventory::addItem(const Item& item)
 
 void Inventory::removeItem(int index)
 {
+	if (index < 0 || index >= this->nrOfItem)
+	{
+		std::cout << "잘못된 접근입니다." << std::endl;
+	}
+
+	delete this->itemArr[index];
+	this->itemArr[index] = this->itemArr[this->nrOfItem - 1];
+	this->itemArr[--this->nrOfItem] = nullptr;
 
 }
 
